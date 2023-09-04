@@ -1,4 +1,5 @@
 import 'package:flip_streak/app_constants/color_constants.dart';
+import 'package:flip_streak/business/notification_util.dart';
 import 'package:flip_streak/presentation/views/text_inria_sans.dart';
 import 'package:flutter/material.dart';
 
@@ -15,7 +16,7 @@ class AllowNotificationButton extends StatelessWidget {
         style: ElevatedButton.styleFrom(shape: const StadiumBorder(), backgroundColor: colorAccent),
 
         onPressed: (){
-
+          NotificationUtil.requestPermission();
         },
 
         child: TextInriaSans("Allow Notification", color: Colors.white, size: 16,),
