@@ -16,6 +16,7 @@ class AllowNotificationButton extends StatelessWidget {
         style: ElevatedButton.styleFrom(shape: const StadiumBorder(), backgroundColor: colorAccent),
 
         onPressed: (){
+          //request user to allow notifications
           NotificationUtil.requestPermission();
         },
 
