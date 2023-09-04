@@ -1,7 +1,7 @@
 import 'package:flip_streak/app_constants/hive_keys.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import '../../data/shared_pref/hive_client.dart';
-import '../provider/streak_provider.dart';
+import '../../../../data/shared_pref/hive_client.dart';
+import '../../../provider/streak_provider.dart';
 
 class StreakCommentUtil {
 

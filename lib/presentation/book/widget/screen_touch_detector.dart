@@ -1,7 +1,7 @@
 import 'package:flip_streak/app_constants/topbar_constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import '../../../business/controllers/book_controller.dart';
+import '../../../business/app_wise/controllers/book_controller.dart';
 import '../../../provider/page_selection_provider.dart';
 import '../../../provider/top_bar_provider.dart';
 

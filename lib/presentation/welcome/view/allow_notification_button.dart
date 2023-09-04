@@ -1,5 +1,5 @@
 import 'package:flip_streak/app_constants/color_constants.dart';
-import 'package:flip_streak/business/notification_util.dart';
+import 'package:flip_streak/business/system_wise/notification_util.dart';
 import 'package:flip_streak/presentation/views/text_inria_sans.dart';
 import 'package:flutter/material.dart';
 

@@ -1,7 +1,7 @@
 import 'package:flip_streak/app_constants/hive_keys.dart';
-import 'package:flip_streak/business/streak_util.dart';
+import 'package:flip_streak/business/app_wise/counters/streak_counter_util.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import '../../data/shared_pref/hive_client.dart';
+import '../../../../data/shared_pref/hive_client.dart';
 
 class CountersUtil {
   static final HiveClient _hive = HiveClient();
@@ -14,14 +14,14 @@ class CountersUtil {
     switch(streakState) {
       case SAME_DATE_STATE:
         incrementCounters(isIncrement);
-        StreakHandler.updateStreak(ref);
+        StreakCounterUtil.updateStreakOnFirstFlip(ref);
         break;
 
       case COUNTDOWN_STATE:
         _hive.resetFlipCounter();
         _hive.resetPageReadCounter();
         incrementCounters(isIncrement);
-        StreakHandler.updateStreak(ref);
+        StreakCounterUtil.updateStreakOnFirstFlip(ref);
         break;
 
       case ENDED_STATE:
@@ -52,7 +52,7 @@ class CountersUtil {
   static void resetAllCounter(WidgetRef ref){
     _hive.resetPageReadCounter(); //how much you read today
     _hive.resetFlipCounter(); //number of pages flipped
-    StreakHandler.resetStreak(ref);
+    StreakCounterUtil.resetStreak(ref);
   }
 
 }

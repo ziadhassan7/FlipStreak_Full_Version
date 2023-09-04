@@ -5,7 +5,7 @@ import 'package:flip_streak/presentation/views/text_inria_sans.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../app_constants/color_constants.dart';
-import '../../../business/controllers/book_controller.dart';
+import '../../../business/app_wise/controllers/book_controller.dart';
 import '../../../business/route_util.dart';
 import '../../../data/model/book_model.dart';
 

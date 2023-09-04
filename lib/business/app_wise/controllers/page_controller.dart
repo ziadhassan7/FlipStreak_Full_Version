@@ -2,8 +2,8 @@ import 'package:flip_streak/data/local_db/book_client.dart';
 import 'package:flip_streak/data/model/book_model.dart';
 import 'package:flip_streak/data/shared_pref/hive_client.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import '../../presentation/views/topbar/search_bar.dart';
-import '../../provider/bookmark_list_provider.dart';
+import '../../../presentation/views/topbar/search_bar.dart';
+import '../../../provider/bookmark_list_provider.dart';
 import 'book_controller.dart';
 
 //Selected Text

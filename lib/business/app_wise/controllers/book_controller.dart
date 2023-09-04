@@ -1,7 +1,7 @@
 import 'package:flip_streak/business/string_list_converter.dart';
 import 'package:syncfusion_flutter_pdfviewer/pdfviewer.dart';
-import '../../data/local_db/book_client.dart';
-import '../../data/model/book_model.dart';
+import '../../../data/local_db/book_client.dart';
+import '../../../data/model/book_model.dart';
 
 final PdfViewerController controller = PdfViewerController();
 BookClient bookClient = BookClient.instance;

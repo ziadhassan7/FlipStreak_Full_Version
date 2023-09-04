@@ -3,7 +3,7 @@ import 'package:flip_streak/presentation/detail/widget/page_number_widget.dart';
 import 'package:flip_streak/presentation/detail/widget/action_buttons/action_buttons_row.dart';
 import 'package:flip_streak/presentation/detail/widget/edit_button.dart';
 import 'package:flutter/material.dart';
-import '../../../business/controllers/book_controller.dart';
+import '../../../business/app_wise/controllers/book_controller.dart';
 import '../../views/book_thumbnail.dart';
 import '../../views/notes_and_bookmarks/bottom_tab_controller.dart';
 import '../../views/text_inria_sans.dart';

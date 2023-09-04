@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/svg.dart';
 import '../../../../app_constants/color_constants.dart';
-import '../../../business/controllers/book_controller.dart';
+import '../../../business/app_wise/controllers/book_controller.dart';
 import '../../../provider/bookmark_list_provider.dart';
 
 class BookmarkFab extends ConsumerWidget {

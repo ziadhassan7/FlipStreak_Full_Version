@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../app_constants/color_constants.dart';
-import '../../../business/controllers/book_controller.dart';
+import '../../../business/app_wise/controllers/book_controller.dart';
 import '../../../provider/book_list_provider.dart';
 import '../../views/text_inria_sans.dart';
 

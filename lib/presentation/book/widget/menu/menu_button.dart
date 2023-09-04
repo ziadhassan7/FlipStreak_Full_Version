@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../../app_constants/color_constants.dart';
 import '../../../../app_constants/topbar_constants.dart';
-import '../../../../business/controllers/book_controller.dart';
+import '../../../../business/app_wise/controllers/book_controller.dart';
 import '../../../../provider/bright_mode_provider.dart';
 import '../../../../provider/page_selection_provider.dart';
 import '../../../views/dialoq/bookmark_dialog/bookmarks_dialog.dart';

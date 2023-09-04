@@ -1,7 +1,7 @@
 import 'package:flip_streak/app_constants/hive_keys.dart';
-import '../../data/shared_pref/hive_client.dart';
+import '../../../../data/shared_pref/hive_client.dart';
 
-class DateUtil {
+class StreakStateUtil {
 
   static final HiveClient _hive = HiveClient();
 
@@ -11,25 +11,22 @@ class DateUtil {
     //Last Saved Date
     DateTime lastSavedDate = _hive.getLastDate();
     //Durations
-    Duration remainder = currentDate.difference(lastSavedDate).abs();
+    Duration remaining = currentDate.difference(lastSavedDate).abs();
     Duration hoursMin = const Duration(hours: 24);
     Duration hoursMax = const Duration(hours: 56);
 
-    print("STREAK_LOG [state]: lastDate $lastSavedDate");
-    print("STREAK_LOG [state]: duration $remainder");
 
-    if(remainder < hoursMin) {
+    if(remaining < hoursMin) {
       _hive.updateStreakState(SAME_DATE_STATE);
 
-    } else if (remainder > hoursMin  &&  remainder < hoursMax){
+    } else if (remaining > hoursMin  &&  remaining < hoursMax){
       _hive.updateStreakState(COUNTDOWN_STATE);
 
-    }else if (remainder > hoursMax){
+    }else if (remaining > hoursMax){
       _hive.updateStreakState(ENDED_STATE);
       resetAllCounter();
     }
 
-    print("STREAK_LOG [state]: state ${_hive.getStreakState()}");
   }
 
   static void updateWithNewDate(DateTime newDate){
@@ -41,8 +38,6 @@ class DateUtil {
     _hive.resetPageReadCounter();
     _hive.resetFlipCounter();
     _hive.resetStreakCounter();
-
-    print("STREAK_LOG [reset]: reset all (with no update)");
   }
 
 }

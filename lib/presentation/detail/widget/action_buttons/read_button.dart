@@ -1,7 +1,7 @@
 import 'package:flip_streak/presentation/book/screen/book_page.dart';
 import 'package:flutter/material.dart';
 import '../../../../app_constants/color_constants.dart';
-import '../../../../business/controllers/book_controller.dart';
+import '../../../../business/app_wise/controllers/book_controller.dart';
 import '../../../../business/route_util.dart';
 import '../../../views/text_inria_sans.dart';
 

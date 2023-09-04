@@ -1,4 +1,4 @@
-import 'package:flip_streak/business/controllers/book_controller.dart';
+import 'package:flip_streak/business/app_wise/controllers/book_controller.dart';
 import '../../data/local_db/book_client.dart';
 import '../../data/model/book_model.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';

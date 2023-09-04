@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import '../../../business/controllers/page_controller.dart';
+import '../../../business/app_wise/controllers/page_controller.dart';
 import '../dialoq/note_dialog/add_note_dialog.dart';
 import '../dialoq/translate_dialog/translate_dialog.dart';
 

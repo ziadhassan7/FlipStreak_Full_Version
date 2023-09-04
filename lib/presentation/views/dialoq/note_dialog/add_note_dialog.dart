@@ -1,7 +1,7 @@
 import 'package:flip_streak/presentation/views/dialoq/note_dialog/note_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import '../../../../business/controllers/book_controller.dart';
+import '../../../../business/app_wise/controllers/book_controller.dart';
 import '../../../../data/local_db/note_client.dart';
 import '../../../../data/model/note_model.dart';
 import '../../../../provider/note_list_provider.dart';

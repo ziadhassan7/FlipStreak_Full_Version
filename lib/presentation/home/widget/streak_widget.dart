@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import '../../../business/streak_comment_util.dart';
+import '../../../business/app_wise/streak/streak_comment_util.dart';
 import '../../../provider/streak_provider.dart';
 import '../../views/text_inria_sans.dart';
 
