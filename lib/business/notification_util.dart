@@ -7,7 +7,7 @@ class NotificationUtil {
 
   static Future<void> showNotification ({required String title}) async {
 
-    _requestPermission().then((value) =>
+    requestPermission().then((value) =>
 
         _notification.show(
             0,
@@ -31,7 +31,7 @@ class NotificationUtil {
   }
 
   //Request Permissions, for android 13 or higher
-  static Future<void> _requestPermission() async {
+  static Future<void> requestPermission() async {
     FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
     FlutterLocalNotificationsPlugin();
     await flutterLocalNotificationsPlugin.resolvePlatformSpecificImplementation<
