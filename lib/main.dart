@@ -6,8 +6,8 @@ import 'package:flip_streak/presentation/welcome/screen/welcome_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hive_flutter/hive_flutter.dart';
-import 'business/date_util.dart';
-import 'business/system_util.dart';
+import 'business/app_wise/streak/streak_state_util.dart';
+import 'business/system_wise/system_util.dart';
 
 Future<void> main() async {
   //When you are initializing any future function, it is better to call,
@@ -20,7 +20,7 @@ Future<void> main() async {
   await Hive.openBox(GLOBAL_DATA_BOX);
 
   //Update Streak
-  DateUtil.updateStreakState();
+  StreakStateUtil.updateStreakState();
 
   runApp(
     // Adding ProviderScope enables Riverpod for the entire project
@@ -37,7 +37,7 @@ class MyApp extends StatelessWidget {
   Widget getFirstScreen(){
     bool isAppFirstOpen = hiveClient.getFirstOpenState();
 
-    if(true){
+    if(isAppFirstOpen){
       return const WelcomeScreen();
 
     } else {
