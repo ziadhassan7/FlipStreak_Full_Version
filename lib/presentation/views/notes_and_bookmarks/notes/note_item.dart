@@ -1,0 +1,84 @@
+import 'package:flip_streak/app_constants/color_constants.dart';
+import 'package:flip_streak/presentation/views/dialoq/delete_dialog/delete_note_dialog.dart';
+import 'package:flip_streak/presentation/views/dialoq/note_dialog/add_note_dialog.dart';
+import 'package:flip_streak/presentation/views/text_inria_sans.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import '../../../../../data/model/note_model.dart';
+import '../../../styles/box_decoration.dart';
+
+class NoteItem extends ConsumerWidget {
+  const NoteItem({Key? key, required this.note}) : super(key: key);
+
+  final NoteModel note;
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+
+    return Padding(
+      padding: const EdgeInsets.only(top: 30, bottom: 30, left: 30),
+
+      child: InkWell(
+        //Tap
+        onTap: (){
+          AddNoteDialog.noteTitleController.text = note.noteTitle ?? "";
+          AddNoteDialog.noteBodyController.text = note.noteBody;
+          AddNoteDialog(context, ref);
+        },
+
+        //Long Press
+        onLongPress: (){
+
+          //open dialog
+          DeleteNoteDialog(context, ref, noteId: note.noteId);
+        },
+
+
+        //Widget
+        child: Container(
+          padding: const EdgeInsets.symmetric(vertical: 30, horizontal: 20),
+          width: 180,
+          height: 160,
+
+          decoration: CustomDecoration(
+            backgroundColor: Colors.white,
+            borderColor: colorAccent.withOpacity(0.4),
+            radius: 20,
+            borderWidth: 2,
+          ),
+
+
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+
+            children: [
+
+              customText(
+                  note.noteTitle ?? "",
+                  isTitle: true),
+
+              const SizedBox(height: 15,),
+
+              Expanded(
+                child: customText(
+                    note.noteBody,
+                    isTitle: false),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget customText(String text, {required bool isTitle}) {
+    return TextInriaSans(
+      text,
+      weight: FontWeight.bold,
+      color: isTitle? Colors.black87 : Colors.black54,
+      size: isTitle? 17 : 16,
+      maxLine: isTitle? 1: 10,
+      overflow: TextOverflow.ellipsis,
+    );
+  }
+}
