@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import '../../app_constants/color_constants.dart';
-import '../../provider/bright_mode_provider.dart';
+import '../app_constants/color_constants.dart';
+import '../provider/bright_mode_provider.dart';
 
 class SystemUtil {
 

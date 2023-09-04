@@ -1,6 +1,6 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../app_constants/locals.dart';
-import '../business/app_wise/translate_util.dart';
+import '../business/translate_util.dart';
 
 final translationProvider = StateNotifierProvider<TranslationProvider, Future<String>>((ref) {
 

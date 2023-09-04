@@ -1,5 +1,5 @@
 import 'package:simplytranslate/simplytranslate.dart';
-import '../../../app_constants/locals.dart';
+import '../../app_constants/locals.dart';
 
 class TranslateUtil {
 

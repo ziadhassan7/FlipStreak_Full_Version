@@ -26,7 +26,6 @@ class StreakStateUtil {
       _hive.updateStreakState(ENDED_STATE);
       resetAllCounter();
     }
-
   }
 
   static void updateWithNewDate(DateTime newDate){

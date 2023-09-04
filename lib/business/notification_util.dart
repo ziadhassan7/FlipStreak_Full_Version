@@ -18,6 +18,19 @@ class NotificationUtil {
 
   }
 
+  static Future<void> showScheduledNotification ({required String title}) async {
+
+    requestPermission().then((value) =>
+
+        _notification.show(
+            0,
+            title,
+            "This is your code",
+            _getNotificationDetail()
+        ));
+
+  }
+
   //Notification Details
   static _getNotificationDetail(){
     return const NotificationDetails(

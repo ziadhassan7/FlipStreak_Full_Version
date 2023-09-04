@@ -6,7 +6,7 @@ import 'package:path/path.dart';
 import 'package:pdfx/pdfx.dart';
 import '../../../../app_constants/color_constants.dart';
 import '../../../../business/app_wise/controllers/book_controller.dart';
-import '../../../../business/system_wise/file_util.dart';
+import '../../../../business/file_util.dart';
 import '../../../../business/route_util.dart';
 import '../../../../data/model/book_model.dart';
 import '../../../../provider/book_list_provider.dart';
