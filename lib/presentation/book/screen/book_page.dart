@@ -8,8 +8,8 @@ import '../../../app_constants/topbar_constants.dart';
 import '../../../business/app_wise/exit_book_util.dart';
 import '../../../business/system_util.dart';
 import '../../../provider/bright_mode_provider.dart';
-import '../../../provider/page_selection_provider.dart';
-import '../../../provider/top_bar_provider.dart';
+import '../../../provider/top_bar_toggler_provider.dart';
+import '../../../provider/main_top_bar_provider.dart';
 import '../../views/topbar/base_top_bar.dart';
 import '../../views/topbar/search_bar.dart';
 import '../../views/topbar/selection_bar.dart';
@@ -56,7 +56,7 @@ class BookPage extends ConsumerWidget {
               Consumer(
                   builder: (context, ref, child) {
                     return Visibility(
-                        visible: ref.watch(topBarProvider),
+                        visible: ref.watch(mainTopBarProvider),
                         child:
                         topbar(ref));
                   }
@@ -68,7 +68,7 @@ class BookPage extends ConsumerWidget {
                     final isBright = ref.watch(brightModeProvider);
 
                     return Visibility(
-                        visible: ref.watch(topBarProvider),
+                        visible: ref.watch(mainTopBarProvider),
                         child: BookmarkFab(isBright));
                   }
               )
@@ -90,7 +90,7 @@ class BookPage extends ConsumerWidget {
           final Color backgroundColor = isBright ? dominateColor : darkPrimary;
           final Color foregroundColor = isBright ? subColor : darkSecondary;
 
-          switch (ref.watch(pageSelectionProvider)) {
+          switch (ref.watch(topbarTogglerProvider)) {
               case TOPBAR_MAIN:
                 return TopBar(
                     foregroundColor: foregroundColor,

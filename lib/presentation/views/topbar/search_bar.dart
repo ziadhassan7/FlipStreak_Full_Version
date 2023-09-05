@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:syncfusion_flutter_pdfviewer/pdfviewer.dart';
 import '../../../business/app_wise/controllers/book_controller.dart';
-import '../../../provider/page_selection_provider.dart';
+import '../../../provider/top_bar_toggler_provider.dart';
 import '../../../provider/search_text_provider.dart';
 
 
@@ -23,7 +23,7 @@ class FindBar extends ConsumerWidget {
     return WillPopScope(
 
         onWillPop: () async {
-          ref.read(pageSelectionProvider.notifier).toggleTopbar(TOPBAR_MAIN);
+          ref.read(topbarTogglerProvider.notifier).toggleTopbar(TOPBAR_MAIN);
           FindBar.searchResult.clear();
           //When you finish searching, go back to the page you were in
           controller.jumpToPage(bookModel.lastPage);
@@ -41,7 +41,7 @@ class FindBar extends ConsumerWidget {
               iconButton(
                   icon: Icons.close,
                   onPressed: () {
-                    ref.read(pageSelectionProvider.notifier).toggleTopbar(TOPBAR_MAIN);
+                    ref.read(topbarTogglerProvider.notifier).toggleTopbar(TOPBAR_MAIN);
                     FindBar.searchResult.clear();
                     //When you finish searching, go back to the page you were in
                     controller.jumpToPage(bookModel.lastPage);
