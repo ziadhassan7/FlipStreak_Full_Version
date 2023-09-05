@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'package:flip_streak/app_constants/topbar_constants.dart';
 import 'package:flip_streak/presentation/book/screen/book_page.dart';
+import 'package:flip_streak/presentation/book/widget/horizontal_indicator_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:syncfusion_flutter_core/theme.dart';
@@ -9,6 +10,7 @@ import '../../../../app_constants/color_constants.dart';
 import '../../../business/app_wise/controllers/book_controller.dart';
 import '../../../business/app_wise/counters/counters_util.dart';
 import '../../../business/app_wise/controllers/page_controller.dart';
+import '../../../provider/horizontal_indicator_provider.dart';
 import '../../../provider/page_filter_provider.dart';
 import '../../../provider/page_selection_provider.dart';
 import '../../../provider/search_text_provider.dart';
@@ -16,9 +18,9 @@ import '../../../provider/top_bar_provider.dart';
 import '../../views/topbar/search_bar.dart';
 
 class PdfViewer extends ConsumerWidget {
-  PdfViewer({Key? key, this.initialPage}) : super(key: key);
+  const PdfViewer({Key? key, this.initialPage}) : super(key: key);
 
-  ColorFilter pageFilter = filterNormalPage;
+  static ColorFilter _pageFilter = filterNormalPage;
   final int? initialPage;
 
   @override
@@ -31,88 +33,96 @@ class PdfViewer extends ConsumerWidget {
 
     togglePageFilter(filter); //change page color filter
 
+    // Always show horizontal indicator at the start
+    Future.delayed(const Duration(milliseconds: 10), (){
+      ref.read(horizontalIndicatorProvider.notifier).showIndicator();
+    });
 
     return ColorFiltered(
-      colorFilter: pageFilter,
+      colorFilter: _pageFilter,
 
       child: SfPdfViewerTheme(
         data: SfPdfViewerThemeData(
           backgroundColor: getBackgroundColor(filter),
         ),
 
-        child: Consumer(
-          builder: (context, ref, child) {
-            return Stack(
-              children: [
-                SfPdfViewer.file(
-                  File(bookModel.path),
+        child: Stack(
+          children: [
+            SfPdfViewer.file(
+              File(bookModel.path),
 
-                  key: BookPage.pdfViewerKey,
-                  controller: controller,
-                  scrollDirection: PdfScrollDirection.horizontal,
-                  pageLayoutMode: PdfPageLayoutMode.single,
+              key: BookPage.pdfViewerKey,
+              controller: controller,
+              scrollDirection: PdfScrollDirection.horizontal,
+              pageLayoutMode: PdfPageLayoutMode.single,
 
 
-                  /// Text Select
-                  onTextSelectionChanged:
-                      (PdfTextSelectionChangedDetails details) {
+              /// Text Select
+              onTextSelectionChanged:
+                  (PdfTextSelectionChangedDetails details) {
 
-                    if (details.selectedText == null && !FindBar.searchResult.hasResult) {
-                      ref.read(pageSelectionProvider.notifier).toggleTopbar(TOPBAR_MAIN);
-                      //Make sure it's opened
-                      Future.delayed(const Duration(milliseconds: 100), (){
-                        ref.read(topBarProvider.notifier).keepOpen();
-                      });
+                if (details.selectedText == null && !FindBar.searchResult.hasResult) {
+                  ref.read(pageSelectionProvider.notifier).toggleTopbar(TOPBAR_MAIN);
+                  //Make sure it's opened
+                  Future.delayed(const Duration(milliseconds: 100), (){
+                    ref.read(topBarProvider.notifier).keepOpen();
+                  });
 
-                    } else if (details.selectedText != null ) {
-                      //Open selection top-bar
-                      ref.read(pageSelectionProvider.notifier)
-                          .toggleTopbar(TOPBAR_SELECT,);
-                      //Make sure it's opened
-                      ref.read(topBarProvider.notifier).keepOpen();
-                      //to access selected text
-                      globalSelectedText = details.selectedText;
-                    }
+                } else if (details.selectedText != null ) {
+                  //Open selection top-bar
+                  ref.read(pageSelectionProvider.notifier)
+                      .toggleTopbar(TOPBAR_SELECT,);
+                  //Make sure it's opened
+                  ref.read(topBarProvider.notifier).keepOpen();
+                  //to access selected text
+                  globalSelectedText = details.selectedText;
+                }
 
-                  },
+              },
 
-                  /// Load Doc
-                  onDocumentLoaded: (details){
+              /// Load Doc
+              onDocumentLoaded: (details){
 
-                    // update BookModel with total pages value
-                    bookModel = bookModel.copyWith(totalPages: controller.pageCount,);
+                //When book finish loading, hide horizontal indicator
+                Future.delayed(const Duration(milliseconds: 200), (){
+                  ref.read(horizontalIndicatorProvider.notifier).hideIndicator();
+                });
 
-                    updateBookDetails();
+                // update BookModel with total pages value
+                bookModel = bookModel.copyWith(totalPages: controller.pageCount,);
 
-                    //When book finish loading, open top bar
-                    Future.delayed(const Duration(milliseconds: 100), (){
-                      ref.read(topBarProvider.notifier).keepOpen();
-                    });
+                updateBookDetails();
 
-                  },
+                //When book finish loading, open top bar
+                Future.delayed(const Duration(milliseconds: 100), (){
+                  ref.read(topBarProvider.notifier).keepOpen();
+                });
 
-                  /// Change Page
-                  onPageChanged: (details) async {
-                    int lastPage = await getLastPage(bookModel.id);
-                    int newPage = details.newPageNumber;
+              },
 
-                    if (newPage > lastPage) {
-                      CountersUtil.updateCounters(ref, isIncrement: true);
-                      checkFab(ref);
+              /// Change Page
+              onPageChanged: (details) async {
+                int lastPage = await getLastPage(bookModel.id);
+                int newPage = details.newPageNumber;
 
-                    } else {
-                      CountersUtil.updateCounters(ref, isIncrement: false);
-                      checkFab(ref);
-                    }
+                if (newPage > lastPage) {
+                  CountersUtil.updateCounters(ref, isIncrement: true);
+                  checkFab(ref);
 
-                    if(newPage == bookModel.totalPages) {
-                      markAsComplete();
-                    }
-                  },
-                ),
-              ],
-            );
-          }
+                } else {
+                  CountersUtil.updateCounters(ref, isIncrement: false);
+                  checkFab(ref);
+                }
+
+                if(newPage == bookModel.totalPages) {
+                  markAsComplete();
+                }
+              },
+            ),
+
+            /// Indicator: Scrolling is Horizontal
+            const HorizontalIndicatorWidget(),
+          ],
         ),
       ),
     );
@@ -122,19 +132,19 @@ class PdfViewer extends ConsumerWidget {
   void togglePageFilter(int filter){
     switch(filter){
       case 0:
-        pageFilter = filterNormalPage;
+        _pageFilter = filterNormalPage;
         break;
       case 1:
-        pageFilter = filterGreyedLook;
+        _pageFilter = filterGreyedLook;
         break;
       case 2:
-        pageFilter = filterEyeCare;
+        _pageFilter = filterEyeCare;
         break;
       case 3:
-        pageFilter = filterDarkPage;
+        _pageFilter = filterDarkPage;
         break;
       default:
-        pageFilter = filterNormalPage;
+        _pageFilter = filterNormalPage;
     }
   }
 
