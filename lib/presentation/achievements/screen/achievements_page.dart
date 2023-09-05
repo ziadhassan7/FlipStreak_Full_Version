@@ -11,12 +11,14 @@ class AchievementsPage extends StatelessWidget {
     return Scaffold(
       backgroundColor: colorPrimary.withOpacity(0.4),
 
-      body: Column(
-        children: [
-          AchievementTopWidget(),
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            AchievementTopWidget(),
 
-          TodayGoalWidget(),
-        ],
+            TodayGoalWidget(),
+          ],
+        ),
       ),
     );
   }
