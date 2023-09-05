@@ -10,9 +10,6 @@ class CurrentCategoryProvider extends StateNotifier<String>{
 
   CurrentCategoryProvider() : super("All");
 
-
-  Future<void> updateCategory(String item) async {
-    state = item;
-  }
+  void updateCategory(String item) => state = item;
 
 }
