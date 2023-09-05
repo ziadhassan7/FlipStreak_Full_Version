@@ -1,6 +1,7 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../data/shared_pref/hive_client.dart';
 import '../../../provider/streak_provider.dart';
+import '../streak/streak_notification_util.dart';
 import '../streak/streak_state_util.dart';
 
 class StreakCounterUtil {
@@ -21,6 +22,8 @@ class StreakCounterUtil {
       //increment streak
       streakCounter = _hive.getStreakCounter();
       _hive.updateStreakCounter(streakCounter +1);
+      //Trigger notification countdown, and cancel old one
+      StreakNotificationUtil.reScheduleNotification();
       //update provider
       ref.read(streakProvider.notifier).notifyNewStreak();// trigger provider
     }
