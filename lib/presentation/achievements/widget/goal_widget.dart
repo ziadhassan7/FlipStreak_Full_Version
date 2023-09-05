@@ -1,5 +1,5 @@
 import 'package:flip_streak/app_constants/color_constants.dart';
-import 'package:flip_streak/presentation/achievements/view/circular_goal_widget.dart';
+import 'package:flip_streak/presentation/achievements/widget/circular_goal_widget.dart';
 import 'package:flip_streak/presentation/styles/box_decoration.dart';
 import 'package:flip_streak/presentation/styles/padding.dart';
 import 'package:flip_streak/presentation/views/text_inria_sans.dart';
@@ -13,6 +13,7 @@ class GoalWidget extends StatelessWidget {
     required this.currentProgress,
     required this.goal,
     required this.onEditPress,
+    this.showTotalPagesCount = false,
   }) : super(key: key);
 
   final String title;
@@ -20,6 +21,7 @@ class GoalWidget extends StatelessWidget {
   final int currentProgress;
   final int goal;
   final Function() onEditPress;
+  final bool showTotalPagesCount;
 
   @override
   Widget build(BuildContext context) {
