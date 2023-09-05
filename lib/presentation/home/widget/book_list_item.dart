@@ -10,47 +10,18 @@ import '../../book/screen/book_page.dart';
 import '../../views/dialoq/delete_dialog/delete_book_dialoq.dart';
 
 class BookListItem extends ConsumerWidget {
-  BookListItem(this.index, this.ref, {Key? key, required this.bookName, required this.bookModel}) : super(key: key);
+  const BookListItem({Key? key, required this.bookName, required this.bookModel}) : super(key: key);
 
-  final int index;
-  final WidgetRef ref;
   final String? bookName;
-  int selectedCard = -1;
+  static int selectedCard = -1;
 
   final BookModel bookModel;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
 
-    return Stack(
-      children: [
-
-        Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Expanded(
-                child: BookThumbnail(filePath: bookModel.path,)),
-
-            Padding(
-              padding: const EdgeInsets.only(top: 5.0),
-              child: textWidget(bookName ?? "No Name", true),
-            ),
-          ],
-        ),
-
-        clickHandler(context),
-
-      ],
-    );
-  }
-
-
-  Widget clickHandler(BuildContext context) {
-
-    return GestureDetector(
-      behavior: HitTestBehavior.translucent,
-
+    return InkWell(
+      /// Tap --------------
       onTap: () async {
         // Globalize new bookModel data
         await globalizeCurrentBookModel(bookModel.id).then((value) {
@@ -60,16 +31,32 @@ class BookListItem extends ConsumerWidget {
         });
       },
 
+      /// Long Press
       onLongPress: () {
         //open dialog to delete book
         DeleteBookDialog(context, ref, bookId: bookName!,);
       },
-    );
 
+
+      /// Widget ------------
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Expanded(
+              child: BookThumbnail(filePath: bookModel.path,)),
+
+          Padding(
+            padding: const EdgeInsets.only(top: 5.0),
+            child: customTextWidget(bookName ?? "No Name", true),
+          ),
+        ],
+      ),
+    );
   }
 
 
-  Widget textWidget(String text, bool isTitle){
+  Widget customTextWidget(String text, bool isTitle){
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 5),
       child: TextInriaSans(

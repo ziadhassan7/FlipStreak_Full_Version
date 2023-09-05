@@ -63,15 +63,9 @@ class LastBookWidget extends ConsumerWidget {
                   /// Book Thumbnail
                   Expanded(
                     flex: 4,
-                    child: Stack(
-                      children: [
-                        ///Widget
-                        BookThumbnail(filePath: model.path, page: 1,),
-
-                        ///Click Handler
-                        clickHandler(context, model),
-                      ],
-                    ),
+                    child: InkWell(
+                      onTap: () async => await onTap(context, model),
+                      child: BookThumbnail(filePath: model.path, page: 1,)),
                   ),
 
                   const Spacer(),
@@ -173,19 +167,6 @@ class LastBookWidget extends ConsumerWidget {
     } else {
       return value.floor();
     }
-  }
-
-
-  //Click Handler
-  Widget clickHandler(BuildContext context, BookModel model) {
-
-    return GestureDetector(
-        behavior: HitTestBehavior.translucent,
-
-      onTap: () async => await onTap(context, model),
-
-      onHorizontalDragDown: (details){}, //Disable Scroll Effect                                                    `
-    );
   }
 
   Future<void> onTap(BuildContext context, BookModel model) async {

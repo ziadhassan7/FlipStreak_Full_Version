@@ -37,8 +37,6 @@ class BookListView extends ConsumerWidget {
         itemBuilder: (BuildContext context, int index) {
           String name = basename(files[index].id); //removes .pdf
           return BookListItem(
-            index,
-            ref,
             bookName: name,
             bookModel: BookModel(
               id: files[index].id,
