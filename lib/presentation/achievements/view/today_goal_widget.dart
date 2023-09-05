@@ -13,7 +13,7 @@ class TodayGoalWidget extends StatelessWidget {
         goal: 5,
         onEditPress: (){
 
-        }
+        },
     );
   }
 }
