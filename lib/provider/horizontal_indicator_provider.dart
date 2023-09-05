@@ -6,10 +6,9 @@ final horizontalIndicatorProvider = StateNotifierProvider<HorizontalIndicatorPro
 
 
 class HorizontalIndicatorProvider extends StateNotifier<bool>{
-  static bool currentValue = true;
+  HorizontalIndicatorProvider() : super(true); //Initial
 
-  HorizontalIndicatorProvider() : super(currentValue); //Initial
-
-  void showIndicator() => state = currentValue = true;
-  void hideIndicator() => state = currentValue = false;
+  void showIndicator() => state = true;
+  void hideIndicator() => state = false;
+  void toggleIndicator() => state = !state;
 }
