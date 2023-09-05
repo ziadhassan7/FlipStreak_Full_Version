@@ -1,4 +1,5 @@
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:timezone/data/latest_all.dart' as tz;
 import 'package:timezone/timezone.dart' as tz;
 
 class NotificationUtil {
@@ -75,6 +76,8 @@ class NotificationUtil {
 
   /// Initialize in your main(), after WidgetsFlutterBinding.ensureInitialized();
   static init() async {
+
+    tz.initializeTimeZones();
 
     const AndroidInitializationSettings initializationSettingsAndroid =  AndroidInitializationSettings('launch_background');
     // your app icon should be in
