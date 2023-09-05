@@ -1,36 +1,56 @@
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:timezone/timezone.dart' as tz;
 
 class NotificationUtil {
 
   static final _notification = FlutterLocalNotificationsPlugin();
 
-
-  static Future<void> showNotification ({required String title}) async {
+  //Show
+  static Future<void> showNotification (
+    int id,
+    {required String title,
+    required String body,}) async {
 
     requestPermission().then((value) =>
 
         _notification.show(
-            0,
+            id,
             title,
-            "This is your code",
+            body,
             _getNotificationDetail()
         ));
 
   }
 
-  static Future<void> showScheduledNotification ({required String title}) async {
+  //Schedule
+  static Future<void> scheduleNotification (
+    int id,
+    Duration duration,
+    {required String title,
+      required String body,}) async {
 
     requestPermission().then((value) =>
 
-        _notification.show(
-            0,
+        _notification.zonedSchedule(
+            id,
             title,
-            "This is your code",
-            _getNotificationDetail()
-        ));
+            body,
+            tz.TZDateTime.now(tz.local).add(duration),
+            _getNotificationDetail(),
 
+            androidScheduleMode: AndroidScheduleMode.exactAllowWhileIdle,
+            uiLocalNotificationDateInterpretation:
+                  UILocalNotificationDateInterpretation.absoluteTime
+        ));
   }
 
+  //Cancel
+  static Future<void> cancelNotification (int id) async {
+
+    _notification.cancel(id);
+  }
+
+  ///Factory Code
   //Notification Details
   static _getNotificationDetail(){
     return const NotificationDetails(
@@ -43,6 +63,7 @@ class NotificationUtil {
     );
   }
 
+  ///Permission
   //Request Permissions, for android 13 or higher
   static Future<void> requestPermission() async {
     FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
