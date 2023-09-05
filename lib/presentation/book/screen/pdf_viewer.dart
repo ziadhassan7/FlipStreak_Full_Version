@@ -12,9 +12,9 @@ import '../../../business/app_wise/counters/counters_util.dart';
 import '../../../business/app_wise/controllers/page_controller.dart';
 import '../../../provider/horizontal_indicator_provider.dart';
 import '../../../provider/page_filter_provider.dart';
-import '../../../provider/page_selection_provider.dart';
+import '../../../provider/top_bar_toggler_provider.dart';
 import '../../../provider/search_text_provider.dart';
-import '../../../provider/top_bar_provider.dart';
+import '../../../provider/main_top_bar_provider.dart';
 import '../../views/topbar/search_bar.dart';
 
 class PdfViewer extends ConsumerWidget {
@@ -33,10 +33,6 @@ class PdfViewer extends ConsumerWidget {
 
     togglePageFilter(filter); //change page color filter
 
-    // Always show horizontal indicator at the start
-    Future.delayed(const Duration(milliseconds: 10), (){
-      ref.read(horizontalIndicatorProvider.notifier).showIndicator();
-    });
 
     return ColorFiltered(
       colorFilter: _pageFilter,
@@ -62,18 +58,18 @@ class PdfViewer extends ConsumerWidget {
                   (PdfTextSelectionChangedDetails details) {
 
                 if (details.selectedText == null && !FindBar.searchResult.hasResult) {
-                  ref.read(pageSelectionProvider.notifier).toggleTopbar(TOPBAR_MAIN);
+                  ref.read(topbarTogglerProvider.notifier).toggleTopbar(TOPBAR_MAIN);
                   //Make sure it's opened
                   Future.delayed(const Duration(milliseconds: 100), (){
-                    ref.read(topBarProvider.notifier).keepOpen();
+                    ref.read(mainTopBarProvider.notifier).keepOpen();
                   });
 
                 } else if (details.selectedText != null ) {
                   //Open selection top-bar
-                  ref.read(pageSelectionProvider.notifier)
+                  ref.read(topbarTogglerProvider.notifier)
                       .toggleTopbar(TOPBAR_SELECT,);
                   //Make sure it's opened
-                  ref.read(topBarProvider.notifier).keepOpen();
+                  ref.read(mainTopBarProvider.notifier).keepOpen();
                   //to access selected text
                   globalSelectedText = details.selectedText;
                 }
@@ -83,10 +79,7 @@ class PdfViewer extends ConsumerWidget {
               /// Load Doc
               onDocumentLoaded: (details){
 
-                //When book finish loading, hide horizontal indicator
-                Future.delayed(const Duration(milliseconds: 200), (){
-                  ref.read(horizontalIndicatorProvider.notifier).hideIndicator();
-                });
+                showHorizontalIndicatorForSeconds(ref);
 
                 // update BookModel with total pages value
                 bookModel = bookModel.copyWith(totalPages: controller.pageCount,);
@@ -95,7 +88,7 @@ class PdfViewer extends ConsumerWidget {
 
                 //When book finish loading, open top bar
                 Future.delayed(const Duration(milliseconds: 100), (){
-                  ref.read(topBarProvider.notifier).keepOpen();
+                  ref.read(mainTopBarProvider.notifier).keepOpen();
                 });
 
               },
@@ -122,9 +115,29 @@ class PdfViewer extends ConsumerWidget {
 
             /// Indicator: Scrolling is Horizontal
             const HorizontalIndicatorWidget(),
+
+            disableTouchEvents(),
           ],
         ),
       ),
+    );
+  }
+
+  Widget disableTouchEvents(){
+    return Consumer(
+      builder: (context, ref, _) {
+        final topbarState = ref.watch(topbarTogglerProvider);
+
+        return Visibility(
+          visible: topbarState == TOPBAR_SELECT, //disable scrolling, while selecting text
+
+          child: GestureDetector(
+            behavior: HitTestBehavior.translucent,
+            onTap: (){},
+            onHorizontalDragDown: (details){},
+          ),
+        );
+      }
     );
   }
 
@@ -180,6 +193,16 @@ class PdfViewer extends ConsumerWidget {
           ? controller.jumpToPage(initialPage!)
           : jumpToLastPage(bookModel.id);
     }
+  }
+
+  showHorizontalIndicatorForSeconds(WidgetRef ref){
+    // Show horizontal indicator at the start
+    ref.read(horizontalIndicatorProvider.notifier).showIndicator();
+
+    // Hide
+    Future.delayed(const Duration(milliseconds: 1000), (){
+      ref.read(horizontalIndicatorProvider.notifier).hideIndicator();
+    });
   }
 
 }
