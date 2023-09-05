@@ -44,7 +44,9 @@ dependencies:
   pdfx: ^2.4.0
   numberpicker: ^2.1.2
   syncfusion_flutter_pdfviewer: ^22.2.10
+  syncfusion_flutter_core: ^22.2.12
   flutter_local_notifications: ^15.1.1
+  timezone: ^0.9.2
   salomon_bottom_bar: ^3.3.2
   flutter_riverpod: ^2.3.7
   hive_flutter: ^1.1.0
