@@ -8,8 +8,8 @@ class StreakNotificationUtil {
     NotificationUtil.scheduleNotification(
         _scheduledId,
         const Duration(hours: 24),
-        title: "Reminder",
-        body: "You are about to lose your streak!");
+        title: "Hi! Are you okay?",
+        body: "You are about to lose your streak! Keep up your daily reading. ✨");
   }
 
   static void cancelScheduledNotification(){
