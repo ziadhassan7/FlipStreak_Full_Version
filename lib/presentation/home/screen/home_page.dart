@@ -85,6 +85,9 @@ class HomePage extends ConsumerWidget {
 
                   }
               ),
+
+              /// Spare Space
+              const SizedBox(height: 40,),
             ],
           ),
         )
