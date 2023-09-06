@@ -101,10 +101,12 @@ class PdfViewer extends ConsumerWidget {
 
                 if (newPage > lastPage) {
                   CountersUtil.updateCounters(ref, isIncrement: true);
+                  updateLastPage(pageNumber: controller.pageNumber);
                   checkFab(ref);
 
                 } else {
                   CountersUtil.updateCounters(ref, isIncrement: false);
+                  updateLastPage(pageNumber: controller.pageNumber);
                   checkFab(ref);
                 }
 

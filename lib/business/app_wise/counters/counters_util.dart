@@ -6,7 +6,7 @@ import '../../../../data/shared_pref/hive_client.dart';
 
 class CountersUtil {
   static final HiveClient _hive = HiveClient();
-  static int _pageReadCounterForBook = 0;
+  static bool firstOpen = true;
 
 
   static void updateCounters(WidgetRef ref, {required bool isIncrement}){
@@ -38,14 +38,25 @@ class CountersUtil {
 
   /// How many pages you've read Today
   static void incrementCounters(WidgetRef ref, bool isIncrease){
-    isIncrease
-        ? _pageReadCounterForBook++ //increase a page
-        : _pageReadCounterForBook--; //decrease a page
 
-    //Pages Read Today
-    ref.read(pagesReadProvider.notifier).update(_pageReadCounterForBook);
+    int pageReadCounter = _hive.getPageReadCounter();
+
+    if(isIncrease){
+      pageReadCounter++; //increase a page
+
+    } else {
+      if(!firstOpen){
+        pageReadCounter--; //decrease a page, unless it's first open
+      }
+    }
+
     //Flips in general (Trigger for first flip)
-    _hive.increaseFlipCounter();
+    if(!firstOpen){
+      ref.read(pagesReadProvider.notifier).update(pageReadCounter);
+      _hive.increaseFlipCounter();
+    }
+
+    firstOpen = false; //Now it's not first open
   }
 
 
@@ -54,6 +65,11 @@ class CountersUtil {
     ref.read(pagesReadProvider.notifier).reset(); //how much you read today
     _hive.resetFlipCounter(); //number of pages flipped
     StreakCounterUtil.resetStreak(ref);
+  }
+
+  /// Reset
+  static void resetFirstOpen(){
+    firstOpen = true;
   }
 
 }

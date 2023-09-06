@@ -11,10 +11,10 @@ class PagesReadProvider extends StateNotifier<int>{
   HiveClient hiveClient = HiveClient();
 
   PagesReadProvider() : super(0){
-    getInitialValue();
+    notifyValue();
   }
 
-  void getInitialValue(){
+  void notifyValue(){
     state = hiveClient.getPageReadCounter();
   }
 
