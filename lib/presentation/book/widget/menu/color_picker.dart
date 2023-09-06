@@ -57,7 +57,7 @@ class ColorPicker{
           color: colorNormalPage,
           onTap: (){
             ref.read(pageFilterProvider.notifier).changeIndex(0);
-            ref.read(brightModeProvider.notifier).changeIndex(0);
+            ref.read(brightModeProvider.notifier).brightMode();
           },),
 
         colorIcon(
@@ -65,7 +65,7 @@ class ColorPicker{
           color: colorGreyedLook,
           onTap: () {
             ref.read(pageFilterProvider.notifier).changeIndex(1);
-            ref.read(brightModeProvider.notifier).changeIndex(1);
+            ref.read(brightModeProvider.notifier).brightMode();
           },),
 
         colorIcon(
@@ -73,7 +73,7 @@ class ColorPicker{
           color: colorEyeCare,
           onTap: () {
             ref.read(pageFilterProvider.notifier).changeIndex(2);
-            ref.read(brightModeProvider.notifier).changeIndex(2);
+            ref.read(brightModeProvider.notifier).darkMode();
           },),
 
         colorIcon(
@@ -81,7 +81,7 @@ class ColorPicker{
           color: colorDarkPage,
           onTap: (){
             ref.read(pageFilterProvider.notifier).changeIndex(3);
-            ref.read(brightModeProvider.notifier).changeIndex(3);
+            ref.read(brightModeProvider.notifier).darkMode();
           },),
 
       ],

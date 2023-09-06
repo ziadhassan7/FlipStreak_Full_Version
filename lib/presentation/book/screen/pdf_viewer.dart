@@ -15,7 +15,7 @@ import '../../../provider/page_filter_provider.dart';
 import '../../../provider/search_text_provider.dart';
 import '../../../provider/main_top_bar_provider.dart';
 import '../../views/context_menu/context_menu.dart';
-import '../../views/topbar/search_bar.dart';
+import '../../views/topbar/search_topbar/search_bar.dart';
 
 class PdfViewer extends ConsumerWidget {
   const PdfViewer({Key? key, this.initialPage}) : super(key: key);

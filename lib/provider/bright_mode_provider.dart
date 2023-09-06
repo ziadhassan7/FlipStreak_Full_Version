@@ -9,9 +9,6 @@ final brightModeProvider = StateNotifierProvider<BrightModeProvider, bool>((ref)
 class BrightModeProvider extends StateNotifier<bool>{
   BrightModeProvider() : super(true);
 
-  void changeIndex(int index) {
-
-    if (index == 0 || index == 1) state = true; //bright
-    if (index == 2 || index == 3) state = false; //dark
-  }
+  void brightMode() => state = true; //bright
+  void darkMode() => state = false; //dark
 }

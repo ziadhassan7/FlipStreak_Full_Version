@@ -2,9 +2,9 @@ import 'package:flip_streak/app_constants/topbar_constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:syncfusion_flutter_pdfviewer/pdfviewer.dart';
-import '../../../business/app_wise/controllers/book_controller.dart';
-import '../../../provider/top_bar_toggler_provider.dart';
-import '../../../provider/search_text_provider.dart';
+import '../../../../business/app_wise/controllers/book_controller.dart';
+import '../../../../provider/top_bar_toggler_provider.dart';
+import '../../../../provider/search_text_provider.dart';
 
 
 class FindBar extends ConsumerWidget {

@@ -8,8 +8,8 @@ import '../../views/dialoq/category_attacher/category_attacher_dialog.dart';
 import '../../views/dialoq/delete_dialog/delete_book_dialoq.dart';
 import '../../views/text_inria_sans.dart';
 
-class MoreMenuIcon extends ConsumerWidget {
-  const MoreMenuIcon({Key? key, required this.currentBook}) : super(key: key);
+class LibraryMenuIcon extends ConsumerWidget {
+  const LibraryMenuIcon({Key? key, required this.currentBook}) : super(key: key);
 
   final BookModel currentBook;
 

@@ -7,7 +7,7 @@ import '../../../business/app_wise/controllers/book_controller.dart';
 import '../../views/book_thumbnail.dart';
 import '../../views/notes_and_bookmarks/bottom_tab_controller.dart';
 import '../../views/text_inria_sans.dart';
-import '../widget/menu.dart';
+import '../widget/details_page_menu.dart';
 
 class DetailPage extends StatelessWidget {
   const DetailPage({Key? key}) : super(key: key);
@@ -32,7 +32,7 @@ class DetailPage extends StatelessWidget {
         actions: const [
           Padding(
             padding: EdgeInsets.symmetric(horizontal: 15),
-            child: Menu(),
+            child: DetailsPageMenu(),
           )
         ],
       ),

@@ -10,8 +10,8 @@ import '../../../views/menu/menu_widget.dart';
 import '../../../views/text_inria_sans.dart';
 import 'color_picker.dart';
 
-class MenuButton extends StatelessWidget {
-  const MenuButton({Key? key}) : super(key: key);
+class BookMenuButton extends StatelessWidget {
+  const BookMenuButton({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

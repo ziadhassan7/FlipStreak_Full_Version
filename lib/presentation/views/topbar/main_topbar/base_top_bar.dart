@@ -1,12 +1,16 @@
+import 'package:flip_streak/data/shared_pref/hive_client.dart';
+import 'package:flip_streak/presentation/views/topbar/main_topbar/views/page_count_box.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import '../../../business/app_wise/controllers/book_controller.dart';
-import '../../../business/app_wise/exit_book_util.dart';
-import '../../book/widget/menu/menu_button.dart';
-import '../text_inria_sans.dart';
+import '../../../../business/app_wise/controllers/book_controller.dart';
+import '../../../../business/app_wise/exit_book_util.dart';
+import '../../../book/widget/menu/book_menu_button.dart';
+import '../../text_inria_sans.dart';
 
 class TopBar extends StatelessWidget {
   const TopBar({Key? key, required this.backgroundColor, required this.foregroundColor, }) : super(key: key);
+
+  static final HiveClient _hiveClient = HiveClient();
 
   final Color backgroundColor;
   final Color foregroundColor;
@@ -55,20 +59,16 @@ class TopBar extends StatelessWidget {
           const Spacer(),
 
 
-          /*/// PageCount Box
-          Container(
-            decoration: const BoxDecoration(
-                color: colorSecondary,
-                borderRadius: BorderRadius.all(Radius.circular(15))
-            ),
-            padding: const EdgeInsets.symmetric(vertical: 13, horizontal: 25),
-            child: TextInriaSans("1/5", color: colorAccent, weight: FontWeight.bold,),
-          ),*/
+          /// PageCount Box
+          Visibility(
+              visible: _hiveClient.getPagesGoal() != 1,
+              child: const PageCountBox()),
 
           /// More Button
-          const MenuButton(),
+          const BookMenuButton(),
         ],
       ),
     );
   }
+
 }

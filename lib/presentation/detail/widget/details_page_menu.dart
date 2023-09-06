@@ -7,8 +7,8 @@ import '../../views/dialoq/edit_last_page_dialog/edit_last_page_dialoq.dart';
 import '../../views/menu/menu_widget.dart';
 import '../../views/text_inria_sans.dart';
 
-class Menu extends StatelessWidget {
-  const Menu({Key? key}) : super(key: key);
+class DetailsPageMenu extends StatelessWidget {
+  const DetailsPageMenu({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
