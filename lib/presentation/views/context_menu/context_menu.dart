@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:syncfusion_flutter_pdfviewer/pdfviewer.dart';
-import 'context_menu_view.dart';
+import 'view/context_menu_view.dart';
 
 class ContextMenu{
 
