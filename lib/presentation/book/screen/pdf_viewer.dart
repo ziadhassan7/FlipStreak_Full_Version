@@ -15,6 +15,7 @@ import '../../../provider/page_filter_provider.dart';
 import '../../../provider/top_bar_toggler_provider.dart';
 import '../../../provider/search_text_provider.dart';
 import '../../../provider/main_top_bar_provider.dart';
+import '../../views/context_menu/context_menu.dart';
 import '../../views/topbar/search_bar.dart';
 
 class PdfViewer extends ConsumerWidget {
@@ -22,6 +23,7 @@ class PdfViewer extends ConsumerWidget {
 
   static ColorFilter _pageFilter = filterNormalPage;
   final int? initialPage;
+
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -57,14 +59,17 @@ class PdfViewer extends ConsumerWidget {
               onTextSelectionChanged:
                   (PdfTextSelectionChangedDetails details) {
 
-                if (details.selectedText == null && !FindBar.searchResult.hasResult) {
+                if (details.selectedText == null && !FindBar.searchResult.hasResult && ContextMenu.current != null) {
                   ref.read(topbarTogglerProvider.notifier).toggleTopbar(TOPBAR_MAIN);
                   //Make sure it's opened
                   Future.delayed(const Duration(milliseconds: 100), (){
                     ref.read(mainTopBarProvider.notifier).keepOpen();
                   });
 
-                } else if (details.selectedText != null ) {
+                  ContextMenu.current!.remove();
+                  ContextMenu.current = null;
+
+                } else if (details.selectedText != null && ContextMenu.current == null) {
                   //Open selection top-bar
                   ref.read(topbarTogglerProvider.notifier)
                       .toggleTopbar(TOPBAR_SELECT,);
@@ -72,6 +77,8 @@ class PdfViewer extends ConsumerWidget {
                   ref.read(mainTopBarProvider.notifier).keepOpen();
                   //to access selected text
                   globalSelectedText = details.selectedText;
+                  //Show context menu
+                  ContextMenu.show(context, details);
                 }
 
               },

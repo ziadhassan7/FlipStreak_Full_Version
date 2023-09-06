@@ -12,7 +12,6 @@ import '../../../provider/top_bar_toggler_provider.dart';
 import '../../../provider/main_top_bar_provider.dart';
 import '../../views/topbar/base_top_bar.dart';
 import '../../views/topbar/search_bar.dart';
-import '../../views/topbar/selection_bar.dart';
 import '../widget/screen_touch_detector.dart';
 
 class BookPage extends ConsumerWidget {
@@ -93,11 +92,6 @@ class BookPage extends ConsumerWidget {
           switch (ref.watch(topbarTogglerProvider)) {
               case TOPBAR_MAIN:
                 return TopBar(
-                    foregroundColor: foregroundColor,
-                    backgroundColor: backgroundColor,);
-
-              case TOPBAR_SELECT:
-                return SelectionBar(
                     foregroundColor: foregroundColor,
                     backgroundColor: backgroundColor,);
 
