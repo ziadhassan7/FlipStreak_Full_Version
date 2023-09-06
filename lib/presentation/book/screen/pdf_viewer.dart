@@ -1,7 +1,7 @@
 import 'dart:io';
-import 'package:flip_streak/app_constants/topbar_constants.dart';
 import 'package:flip_streak/presentation/book/screen/book_page.dart';
 import 'package:flip_streak/presentation/book/widget/horizontal_indicator_widget.dart';
+import 'package:flip_streak/provider/select_text_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:syncfusion_flutter_core/theme.dart';
@@ -12,7 +12,6 @@ import '../../../business/app_wise/counters/counters_util.dart';
 import '../../../business/app_wise/controllers/page_controller.dart';
 import '../../../provider/horizontal_indicator_provider.dart';
 import '../../../provider/page_filter_provider.dart';
-import '../../../provider/top_bar_toggler_provider.dart';
 import '../../../provider/search_text_provider.dart';
 import '../../../provider/main_top_bar_provider.dart';
 import '../../views/context_menu/context_menu.dart';
@@ -60,19 +59,16 @@ class PdfViewer extends ConsumerWidget {
                   (PdfTextSelectionChangedDetails details) {
 
                 if (details.selectedText == null && !FindBar.searchResult.hasResult && ContextMenu.current != null) {
-                  ref.read(topbarTogglerProvider.notifier).toggleTopbar(TOPBAR_MAIN);
+                  ref.read(selectTextProvider.notifier).deselect();
                   //Make sure it's opened
-                  Future.delayed(const Duration(milliseconds: 100), (){
-                    ref.read(mainTopBarProvider.notifier).keepOpen();
-                  });
+                  ref.read(mainTopBarProvider.notifier).keepOpen();
 
                   ContextMenu.current!.remove();
                   ContextMenu.current = null;
 
                 } else if (details.selectedText != null && ContextMenu.current == null) {
                   //Open selection top-bar
-                  ref.read(topbarTogglerProvider.notifier)
-                      .toggleTopbar(TOPBAR_SELECT,);
+                  ref.read(selectTextProvider.notifier).selected();
                   //Make sure it's opened
                   ref.read(mainTopBarProvider.notifier).keepOpen();
                   //Show context menu
@@ -120,29 +116,9 @@ class PdfViewer extends ConsumerWidget {
 
             /// Indicator: Scrolling is Horizontal
             const HorizontalIndicatorWidget(),
-
-            disableTouchEvents(),
           ],
         ),
       ),
-    );
-  }
-
-  Widget disableTouchEvents(){
-    return Consumer(
-      builder: (context, ref, _) {
-        final topbarState = ref.watch(topbarTogglerProvider);
-
-        return Visibility(
-          visible: topbarState == TOPBAR_SELECT, //disable scrolling, while selecting text
-
-          child: GestureDetector(
-            behavior: HitTestBehavior.translucent,
-            onTap: (){},
-            onHorizontalDragDown: (details){},
-          ),
-        );
-      }
     );
   }
 

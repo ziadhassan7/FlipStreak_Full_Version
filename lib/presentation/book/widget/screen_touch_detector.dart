@@ -1,8 +1,7 @@
-import 'package:flip_streak/app_constants/topbar_constants.dart';
+import 'package:flip_streak/provider/select_text_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../business/app_wise/controllers/book_controller.dart';
-import '../../../provider/top_bar_toggler_provider.dart';
 import '../../../provider/main_top_bar_provider.dart';
 
 class ScreenTouchDetector extends StatelessWidget {
@@ -16,7 +15,7 @@ class ScreenTouchDetector extends StatelessWidget {
       behavior: HitTestBehavior.translucent,
 
       onTap: () {
-        if(widgetRef.watch(topbarTogglerProvider) == TOPBAR_SELECT){
+        if(widgetRef.watch(selectTextProvider)){
           controller.clearSelection();
         } else {
           widgetRef.read(mainTopBarProvider.notifier).toggle();
