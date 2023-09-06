@@ -9,7 +9,7 @@ final searchTextProvider = StateNotifierProvider<SearchTextProvider, int>((ref) 
 class SearchTextProvider extends StateNotifier<int>{
   SearchTextProvider() : super(0);
 
-  void searchIndex(int index) async {
+  void searchIndex(int index) {
 
     state = index;
   }
