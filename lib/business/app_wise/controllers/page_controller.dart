@@ -6,8 +6,6 @@ import '../../../presentation/views/topbar/search_bar.dart';
 import '../../../provider/bookmark_list_provider.dart';
 import 'book_controller.dart';
 
-//Selected Text
-String? globalSelectedText;
 HiveClient hiveClient = HiveClient();
 
 /// Check Fab on page change

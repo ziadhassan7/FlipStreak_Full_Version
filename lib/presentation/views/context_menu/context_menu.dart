@@ -39,7 +39,11 @@ class ContextMenu{
       _verticalPosition = _verticalPosition - (200);
     }
 
-    if(_horizontalPosition > (deviceWidth-200)) {
+    if(_horizontalPosition > (deviceWidth-150)) {
+      _horizontalPosition = _horizontalPosition - (150);
+    }
+
+    if(_horizontalPosition > (deviceWidth-270)) {
       _horizontalPosition = _horizontalPosition - (200);
     }
   }

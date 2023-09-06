@@ -75,8 +75,6 @@ class PdfViewer extends ConsumerWidget {
                       .toggleTopbar(TOPBAR_SELECT,);
                   //Make sure it's opened
                   ref.read(mainTopBarProvider.notifier).keepOpen();
-                  //to access selected text
-                  globalSelectedText = details.selectedText;
                   //Show context menu
                   ContextMenu.show(context, details);
                 }
