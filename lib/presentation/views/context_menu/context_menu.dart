@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:syncfusion_flutter_pdfviewer/pdfviewer.dart';
-import '../../styles/device_screen.dart';
 import 'context_menu_view.dart';
 
 class ContextMenu{
@@ -32,20 +31,18 @@ class ContextMenu{
   static _setPosition(context, details){
     _verticalPosition = details.globalSelectedRegion!.center.dy - 80;
     _horizontalPosition = details.globalSelectedRegion!.bottomLeft.dx;
-    double deviceWidth = DeviceScreen(context).width;
-    double deviceHeight = DeviceScreen(context).height;
 
-    if(_verticalPosition > (deviceHeight-200)) {
-      _verticalPosition = _verticalPosition - (200);
+    // At the top of screen,
+    // position is under text
+    if(_verticalPosition < 10) {
+      _verticalPosition = _verticalPosition + (100);
     }
 
-    if(_horizontalPosition > (deviceWidth-150)) {
-      _horizontalPosition = _horizontalPosition - (150);
+    // Break point is position 125
+    if(_horizontalPosition > 125) {
+      _horizontalPosition = 125;
     }
 
-    if(_horizontalPosition > (deviceWidth-270)) {
-      _horizontalPosition = _horizontalPosition - (200);
-    }
   }
 
 }
