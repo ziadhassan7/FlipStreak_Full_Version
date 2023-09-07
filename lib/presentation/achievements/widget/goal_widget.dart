@@ -23,6 +23,8 @@ class GoalWidget extends StatelessWidget {
   final Function() onEditPress;
   final bool showTotalPagesCount;
 
+  final Color goalReachedColor = Colors.lightGreen;
+
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -36,7 +38,10 @@ class GoalWidget extends StatelessWidget {
           Row(
             children: [
               /// Title - Text
-              TextInriaSans(title, size: 22,),
+              Padding(
+                padding: const CustomPadding(hor: 12),
+                child: TextInriaSans(title, size: 20,),
+              ),
 
               const Spacer(),
 
@@ -56,7 +61,7 @@ class GoalWidget extends StatelessWidget {
                 backgroundColor: Colors.white, //colorBackground
                 radius: 30,
                 borderWidth: 2,
-                borderColor: colorAccent.withOpacity(0.4)
+                borderColor: isGoalReached() ? goalReachedColor.withOpacity(0.6) : colorAccent.withOpacity(0.4)
             ),
 
             child: Row(
@@ -70,7 +75,9 @@ class GoalWidget extends StatelessWidget {
 
                 /// Progress - Circular Widget
                 CircularGoalWidget(
-                  currentProgress: currentProgress, goal: goal,),
+                  currentProgress: currentProgress,
+                  goal: goal,
+                  color: isGoalReached()? Colors.lightGreen : colorAccent,),
               ],
             ),
           )
@@ -80,6 +87,10 @@ class GoalWidget extends StatelessWidget {
   }
 
   Widget alignmentWidget(){
-    return const SizedBox(height: 20,);
+    return const SizedBox(height: 16,);
+  }
+
+  bool isGoalReached(){
+    return currentProgress >= goal;
   }
 }

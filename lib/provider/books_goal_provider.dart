@@ -1,5 +1,7 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../data/shared_pref/hive_client.dart';
+
 final booksGoalProvider = StateNotifierProvider<BooksGoalProvider, int>((ref) {
 
   return BooksGoalProvider();
@@ -7,7 +9,15 @@ final booksGoalProvider = StateNotifierProvider<BooksGoalProvider, int>((ref) {
 
 
 class BooksGoalProvider extends StateNotifier<int>{
-  BooksGoalProvider() : super(1);
+  final HiveClient _hiveClient = HiveClient();
+
+  BooksGoalProvider() : super(1){
+    getInitialValue();
+  }
+
+  getInitialValue(){
+    state = _hiveClient.getBooksGoal();
+  }
 
   void increaseGoal() => state++;
 

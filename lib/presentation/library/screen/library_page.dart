@@ -138,24 +138,4 @@ class LibraryPage extends ConsumerWidget {
 
     return filteredList;
   }
-
-  //returns a list of completed books
-  List<BookModel> getCompletedOnly(List allBooks) {
-
-    List<BookModel> completed = [];
-
-    //Iterate through all books, and add the completed
-    for (BookModel element in allBooks) {
-      if (element.isComplete == 1) {
-        completed.add(element);
-      }
-    }
-
-    //Sort by complete date
-    completed.sort((a, b) {
-      return b.completeDate!.compareTo(a.completeDate!);
-    });
-
-    return completed;
-  }
 }

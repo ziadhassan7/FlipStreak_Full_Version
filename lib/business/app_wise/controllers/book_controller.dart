@@ -32,8 +32,30 @@ void updateBookDetails () {
 }
 
 
+///                                                                             / Completed Books
+//returns a list of completed books
+List<BookModel> getCompletedOnly(List allBooks) {
 
-/// Bookmark
+  List<BookModel> completed = [];
+
+  //Iterate through all books, and add the completed
+  for (BookModel element in allBooks) {
+    if (element.isComplete == 1) {
+      completed.add(element);
+    }
+  }
+
+  //Sort by complete date
+  completed.sort((a, b) {
+    return b.completeDate!.compareTo(a.completeDate!);
+  });
+
+  return completed;
+}
+
+
+
+///                                                                             / Bookmark
 // get bookmark
 Future<List<String>> getBookmarkedPages (String id) async {
   BookModel book = await bookClient.readOneElement(id);
@@ -42,7 +64,7 @@ Future<List<String>> getBookmarkedPages (String id) async {
 }
 
 
-/// Last Page
+///                                                                             / Last Page
 // get last Page
 Future<int> getLastPage (String id) async {
   BookModel book = await bookClient.readOneElement(id);
@@ -58,14 +80,14 @@ Future<void> jumpToLastPage (String id) async {
 }
 
 
-/// Total Pages
+///                                                                             / Total Pages
 // get total pages
 Future<int> getTotalPages (String id) async {
   BookModel book = await bookClient.readOneElement(id);
   return book.totalPages;
 }
 
-/// Book Category
+///                                                                             / Book Category
 // get Book Category or label
 Future<List<String>> getCategoryList (String id) async {
   BookModel book = await bookClient.readOneElement(id);
@@ -73,7 +95,7 @@ Future<List<String>> getCategoryList (String id) async {
   return getListFromString(book.category ?? "");
 }
 
-/// Book Completion state
+///                                                                             / Book Completion state
 // get is book complete?
 Future<int> getCompletionState (String id) async {
   BookModel book = await bookClient.readOneElement(id);

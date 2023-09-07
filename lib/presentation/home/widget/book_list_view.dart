@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:path/path.dart';
-import '../../../data/model/book_model.dart';
 import 'book_list_item.dart';
 
 class BookListView extends ConsumerWidget {
@@ -25,7 +24,7 @@ class BookListView extends ConsumerWidget {
         physics: const NeverScrollableScrollPhysics(),
 
         itemCount: files.length,
-        //using sliver so I don't have to call NeverScrollableScrollPhysics()
+        //I should be using sliver so I don't have to call NeverScrollableScrollPhysics()
         // for better performance.
         // NeverScrollableScrollPhysics() for small lists as it lay off the whole list at once
         gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
@@ -38,17 +37,7 @@ class BookListView extends ConsumerWidget {
           String name = basename(files[index].id); //removes .pdf
           return BookListItem(
             bookName: name,
-            bookModel: BookModel(
-              id: files[index].id,
-              path: files[index].path,
-              bookmarks: files[index].bookmarks,
-              lastPage: files[index].lastPage,
-              totalPages: files[index].totalPages,
-              category: files[index].category,
-              addDate: files[index].addDate,
-              completeDate: files[index].completeDate,
-              isComplete: files[index].isComplete,
-            ),
+            bookModel: files[index]
           );
         },
       ),

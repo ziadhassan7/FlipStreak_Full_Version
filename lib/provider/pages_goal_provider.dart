@@ -1,3 +1,4 @@
+import 'package:flip_streak/data/shared_pref/hive_client.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 final pagesGoalProvider = StateNotifierProvider<PagesGoalProvider, int>((ref) {
@@ -7,7 +8,15 @@ final pagesGoalProvider = StateNotifierProvider<PagesGoalProvider, int>((ref) {
 
 
 class PagesGoalProvider extends StateNotifier<int>{
-  PagesGoalProvider() : super(1);
+  final HiveClient _hiveClient = HiveClient();
+
+  PagesGoalProvider() : super(1){
+    getInitialValue();
+  }
+
+  getInitialValue(){
+    state = _hiveClient.getPagesGoal();
+  }
 
   void increaseGoal() => state++;
 
