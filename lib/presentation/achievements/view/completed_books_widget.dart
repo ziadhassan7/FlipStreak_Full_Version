@@ -29,7 +29,7 @@ class CompletedBooksWidget extends StatelessWidget {
           alignmentWidget(),
 
           Container(
-            padding: const CustomPadding.only(horizontal: 20, top: 20, bottom: 160),
+            padding: const CustomPadding.only(horizontal: 20, bottom: 100),
 
             decoration: CustomDecoration(
                 backgroundColor: Colors.white, //colorBackground
