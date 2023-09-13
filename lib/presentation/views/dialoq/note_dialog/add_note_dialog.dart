@@ -16,15 +16,17 @@ class AddNoteDialog {
   final NoteClient noteClient = NoteClient.instance;
 
 
-  AddNoteDialog(BuildContext context, WidgetRef ref,) {
+  AddNoteDialog(BuildContext context, WidgetRef ref, {String? selectedText}) {
+
+    if(selectedText != null) noteBodyController.text = selectedText; //Get selected text
+
     DialogWidget(
         context,
 
-        dominantButtonFunction: (){
+        dominantButtonFunction: () async {
           if (formKey.currentState!.validate()) {
-            saveNote(ref);
+            await saveNote(ref);
           }
-
         },
 
         child: const NoteView(),
@@ -33,6 +35,7 @@ class AddNoteDialog {
   }
 
   Future<void> saveNote(WidgetRef ref,) async {
+    print("fuck fuk");
 
     //Get Title
     String? title;
@@ -42,7 +45,7 @@ class AddNoteDialog {
     String body = noteBodyController.text;
 
     //Add new Note, and refresh providers
-    ref.read(noteListProvider.notifier).addNote(
+    await ref.read(noteListProvider.notifier).addNote(
         NoteModel(
           noteId: DateTime.now().toString(),
           noteTitle: title,

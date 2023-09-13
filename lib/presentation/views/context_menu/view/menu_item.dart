@@ -33,7 +33,7 @@ class ContextMenuItem extends ConsumerWidget {
 
                 // Handle Note
                 case MenuItem.Note:
-                  AddNoteDialog(context, ref);
+                  AddNoteDialog(context, ref, selectedText: selectedText);
                   controller.clearSelection();
                   break;
 

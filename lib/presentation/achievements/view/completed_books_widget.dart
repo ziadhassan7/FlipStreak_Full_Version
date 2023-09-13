@@ -6,6 +6,7 @@ import '../../styles/box_decoration.dart';
 import '../../styles/padding.dart';
 import '../../views/text_inria_sans.dart';
 import '../widget/completed_book_item.dart';
+import 'my_grouped_list.dart';
 
 class CompletedBooksWidget extends StatelessWidget {
   const CompletedBooksWidget({Key? key, required  this.books}) : super(key: key);
@@ -14,6 +15,9 @@ class CompletedBooksWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
+    arrangeBooksByCompletionDate();
+
     return Padding(
       padding: const CustomPadding(hor: 30, ver: 20),
 
@@ -38,23 +42,29 @@ class CompletedBooksWidget extends StatelessWidget {
                 borderColor: colorAccent.withOpacity(0.4)
             ),
 
-            child: GridView.builder(
+            child: MyGroupedList.grid(
               shrinkWrap: true,
-              physics: const NeverScrollableScrollPhysics(),
-              itemCount: books.length,
-              gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
-                  maxCrossAxisExtent: 200,
-                  childAspectRatio: 2 / 3.2,
-                  crossAxisSpacing: 25,
-                  mainAxisSpacing: 15),
-
-              itemBuilder: (BuildContext context, int index) {
-                String name = basename(books[index].id); //removes .pdf
+              crossAxisCount: 2,
+              items: books,
+              sortBy: (element){
+                int year = DateTime.parse(element.completeDate!).year;
+                return year;
+              },
+              itemBuilder: (context, item){
+                String name = basename(item.id); //removes .pdf
                 return CompletedBookItem(
                     bookName: name,
-                    bookModel: books[index]
+                    bookModel: item
                 );
               },
+              groupSeparatorBuilder: (year) {
+                  return TextInriaSans(
+                    year.toString(),
+                    size: 18,
+                    weight: FontWeight.bold,
+                    color: colorAccent,
+                  );
+                },
             )
           ),
         ],
@@ -64,5 +74,12 @@ class CompletedBooksWidget extends StatelessWidget {
 
   Widget alignmentWidget(){
     return const SizedBox(height: 16,);
+  }
+
+
+  void arrangeBooksByCompletionDate(){
+    books.sort((b,a) {
+      return a.completeDate!.compareTo(b.completeDate!);
+    });
   }
 }

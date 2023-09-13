@@ -35,13 +35,9 @@ class BookProvider extends StateNotifier<Future<List<BookModel>>>{
   /// Add/Remove Item to Completed, and Return All Items
   void toggleAsCompleted(BookModel oldModel) async {
 
-    BookModel newModel;
-
     oldModel.isComplete == 0
-        ? newModel = oldModel.copyWith(isComplete: 1) //if false, make it true (1)
-        : newModel = oldModel.copyWith(isComplete: 0); //else , make it false (0)
-
-    _bookClient.updateItem(newModel); //Update item in database
+        ? markAsComplete(book: oldModel) //if false, make it true (1)
+        : markAsIncomplete(book: oldModel); //else , make it false (0)
 
     //Get List of all books
     await updateNotifier();

@@ -95,7 +95,7 @@ Future<List<String>> getCategoryList (String id) async {
   return getListFromString(book.category ?? "");
 }
 
-///                                                                             / Book Completion state
+///                                                                             / Book Completion
 // get is book complete?
 Future<int> getCompletionState (String id) async {
   BookModel book = await bookClient.readOneElement(id);
@@ -103,9 +103,11 @@ Future<int> getCompletionState (String id) async {
 }
 
 //mark book as completed
-markAsComplete () {
+markAsComplete ({BookModel? book}) {
 
-  bookModel = bookModel.copyWith(
+  book ??= bookModel;
+
+  bookModel = book.copyWith(
     completeDate: DateTime.now().toString(), //<-- update completion date
     isComplete: 1, //<-- update completion state
   );
@@ -114,9 +116,11 @@ markAsComplete () {
 }
 
 //mark book as incomplete
-markAsIncomplete () {
+markAsIncomplete ({BookModel? book}) {
 
-  bookModel = bookModel.copyWith(
+  book ??= bookModel;
+
+  bookModel = book.copyWith(
     completeDate: null, //<-- update completion date
     isComplete: 0, //<-- update completion state
   );
