@@ -25,7 +25,7 @@ class AddNoteDialog {
 
         dominantButtonFunction: () async {
           if (formKey.currentState!.validate()) {
-            await saveNote(ref);
+            saveNote(ref);
           }
         },
 
@@ -34,9 +34,7 @@ class AddNoteDialog {
     ).showAlert();
   }
 
-  Future<void> saveNote(WidgetRef ref,) async {
-    print("fuck fuk");
-
+  void saveNote(WidgetRef ref,) {
     //Get Title
     String? title;
     if(noteTitleController.text.isNotEmpty) title = noteTitleController.text;
@@ -45,7 +43,7 @@ class AddNoteDialog {
     String body = noteBodyController.text;
 
     //Add new Note, and refresh providers
-    await ref.read(noteListProvider.notifier).addNote(
+    ref.read(noteListProvider.notifier).addNote(
         NoteModel(
           noteId: DateTime.now().toString(),
           noteTitle: title,

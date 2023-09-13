@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:syncfusion_flutter_pdfviewer/pdfviewer.dart';
 import 'view/context_menu_view.dart';
 
@@ -8,7 +9,7 @@ class ContextMenu{
   static late double _verticalPosition;
   static late double _horizontalPosition;
 
-  static void show(BuildContext context,PdfTextSelectionChangedDetails details) {
+  static void show(BuildContext context, WidgetRef ref, PdfTextSelectionChangedDetails details) {
     final OverlayState overlayState = Overlay.of(context);
 
     // set position to variables
@@ -21,6 +22,7 @@ class ContextMenu{
         left: _horizontalPosition,
 
         child: ContextMenuView(
+          ref,
           selectedText: details.selectedText!,),
       ),
     );

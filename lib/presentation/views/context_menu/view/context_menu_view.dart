@@ -1,8 +1,9 @@
 import 'package:flip_streak/app_constants/color_constants.dart';
 import 'package:flip_streak/presentation/styles/box_decoration.dart';
 import 'package:flip_streak/presentation/styles/padding.dart';
-import 'package:flip_streak/presentation/views/context_menu/view/menu_item.dart';
+import 'package:flip_streak/presentation/views/context_menu/view/context_menu_item.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 enum MenuItem {
   Copy,
@@ -11,8 +12,9 @@ enum MenuItem {
 }
 
 class ContextMenuView extends StatelessWidget {
-  const ContextMenuView({Key? key, required this.selectedText,}) : super(key: key);
+  const ContextMenuView(this.ref, {Key? key, required this.selectedText,}) : super(key: key);
 
+  final WidgetRef ref;
   final String selectedText;
   final double radius = 15;
   final double elevation = 15;
@@ -39,6 +41,7 @@ class ContextMenuView extends StatelessWidget {
 
             itemBuilder: (context, index) {
               return ContextMenuItem(
+                  ref,
                   currentItem: MenuItem.values[index],
                   selectedText: selectedText);
               },

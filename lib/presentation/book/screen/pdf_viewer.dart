@@ -72,7 +72,7 @@ class PdfViewer extends ConsumerWidget {
                   //Make sure it's opened
                   ref.read(mainTopBarProvider.notifier).keepOpen();
                   //Show context menu
-                  ContextMenu.show(context, details);
+                  ContextMenu.show(context, ref, details);
                 }
 
               },

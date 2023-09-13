@@ -28,7 +28,7 @@ class DeleteNoteDialog {
     ).showAlert();
   }
 
-  Future<void> deleteNote(WidgetRef ref, String noteId) async {
+  void deleteNote(WidgetRef ref, String noteId) {
     //delete note
     ref.read(noteListProvider.notifier).deleteNote(noteId);
   }

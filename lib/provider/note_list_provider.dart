@@ -31,7 +31,7 @@ class NoteProvider extends StateNotifier<List<NoteModel>> {
   }
 
   /// Add New Note
-  addNote(NoteModel newModel) async {
+  void addNote(NoteModel newModel) async {
 
     //Create new Note Item
     noteClient.createItem(newModel);

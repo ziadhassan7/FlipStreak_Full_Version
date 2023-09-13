@@ -9,14 +9,15 @@ import '../../dialoq/translate_dialog/translate_dialog.dart';
 import '../../text_inria_sans.dart';
 import 'context_menu_view.dart';
 
-class ContextMenuItem extends ConsumerWidget {
-  const ContextMenuItem({Key? key, required this.currentItem, required this.selectedText}) : super(key: key);
+class ContextMenuItem extends StatelessWidget {
+  const ContextMenuItem(this.ref, {Key? key, required this.currentItem, required this.selectedText}) : super(key: key);
 
+  final WidgetRef ref;
   final MenuItem currentItem;
   final String selectedText;
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget build(BuildContext context,) {
     return Center(
       child: Padding(
         padding: const CustomPadding(hor: 15),
@@ -28,21 +29,21 @@ class ContextMenuItem extends ConsumerWidget {
                 // Handle Copy
                 case MenuItem.Copy:
                   Clipboard.setData(ClipboardData(text: selectedText));
-                  controller.clearSelection();
                   break;
 
                 // Handle Note
                 case MenuItem.Note:
-                  AddNoteDialog(context, ref, selectedText: selectedText);
-                  controller.clearSelection();
+                  AddNoteDialog(context, ref, selectedText: selectedText,);
                   break;
 
                 // Handle Translate
                 case MenuItem.Translate:
                   TranslateDialog(context, ref, selectedText);
-                  controller.clearSelection();
                   break;
               }
+
+              //Close context menu
+              controller.clearSelection();
             },
 
             /// Widget
