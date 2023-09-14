@@ -1,5 +1,6 @@
 import 'package:flip_streak/data/model/book_model.dart';
 import 'package:flip_streak/presentation/views/menu/menu_widget.dart';
+import 'package:flip_streak/provider/last_book_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../app_constants/color_constants.dart';
@@ -42,6 +43,7 @@ class LibraryMenuIcon extends ConsumerWidget {
 
         if (value == 1) {
           ref.read(bookListProvider.notifier).toggleAsCompleted(currentBook);
+          ref.refresh(lastBookProvider);
         }
 
         if (value == 2) {

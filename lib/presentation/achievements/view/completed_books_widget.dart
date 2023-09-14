@@ -44,7 +44,7 @@ class CompletedBooksWidget extends StatelessWidget {
 
             child: MyGroupedList.grid(
               shrinkWrap: true,
-              crossAxisCount: 2,
+              crossAxisCount: 3,
               items: books,
               sortBy: (element){
                 int year = DateTime.parse(element.completeDate!).year;

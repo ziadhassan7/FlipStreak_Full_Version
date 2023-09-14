@@ -36,7 +36,7 @@ class BookProvider extends StateNotifier<Future<List<BookModel>>>{
   void toggleAsCompleted(BookModel oldModel) async {
 
     oldModel.isComplete == 0
-        ? markAsComplete(book: oldModel) //if false, make it true (1)
+        ? markAsComplete(book: oldModel,) //if false, make it true (1)
         : markAsIncomplete(book: oldModel); //else , make it false (0)
 
     //Get List of all books

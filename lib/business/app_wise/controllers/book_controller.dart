@@ -110,6 +110,7 @@ markAsComplete ({BookModel? book}) {
   bookModel = book.copyWith(
     completeDate: DateTime.now().toString(), //<-- update completion date
     isComplete: 1, //<-- update completion state
+    lastPage: book.totalPages
   );
 
   updateBookDetails();
@@ -123,6 +124,7 @@ markAsIncomplete ({BookModel? book}) {
   bookModel = book.copyWith(
     completeDate: null, //<-- update completion date
     isComplete: 0, //<-- update completion state
+    lastPage: 0
   );
 
   updateBookDetails();
