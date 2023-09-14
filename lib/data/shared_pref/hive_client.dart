@@ -1,6 +1,8 @@
 import 'package:flip_streak/app_constants/hive_keys.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
+import '../../app_constants/language_enum.dart';
+
 class HiveClient {
 
   late Box globalBox;
@@ -145,4 +147,23 @@ class HiveClient {
     return globalBox.get(PAGES_GOAL, defaultValue: 1);
   }
 
+
+  /// --------------------------------------------------------------------------/ Language
+  //Source
+  void updateLanguageSource(String newValue) {
+    globalBox.put(LANGUAGE_SOURCE, newValue);
+  }
+
+  String getLanguageSource() {
+    return globalBox.get(LANGUAGE_SOURCE, defaultValue: Language.auto.name);
+  }
+
+  //To
+  void updateLanguageTo(String newValue) {
+    globalBox.put(LANGUAGE_TO, newValue);
+  }
+
+  String getLanguageTo() {
+    return globalBox.get(LANGUAGE_TO, defaultValue: Language.ar.name);
+  }
 }

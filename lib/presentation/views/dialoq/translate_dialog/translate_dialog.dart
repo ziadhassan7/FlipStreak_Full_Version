@@ -1,4 +1,4 @@
-import 'package:flip_streak/presentation/views/dialoq/translate_dialog/translate_view.dart';
+import 'package:flip_streak/presentation/views/dialoq/translate_dialog/view/translate_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../../provider/translation_provider.dart';
@@ -17,6 +17,7 @@ class TranslateDialog {
         context,
 
         dominantButtonTitle: 'Translate',
+        dominateButtonCloseAfterFunction: false,
         dominantButtonFunction: (){
           ref.read(translationProvider.notifier).translate(textController.text);
         },

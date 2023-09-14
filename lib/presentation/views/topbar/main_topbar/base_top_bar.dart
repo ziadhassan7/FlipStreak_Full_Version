@@ -1,4 +1,3 @@
-import 'package:flip_streak/data/shared_pref/hive_client.dart';
 import 'package:flip_streak/presentation/views/topbar/main_topbar/views/page_count_box.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -9,8 +8,6 @@ import '../../text_inria_sans.dart';
 
 class TopBar extends StatelessWidget {
   const TopBar({Key? key, required this.backgroundColor, required this.foregroundColor, }) : super(key: key);
-
-  static final HiveClient _hiveClient = HiveClient();
 
   final Color backgroundColor;
   final Color foregroundColor;
@@ -60,9 +57,7 @@ class TopBar extends StatelessWidget {
 
 
           /// PageCount Box
-          Visibility(
-              visible: _hiveClient.getPagesGoal() != 1,
-              child: const PageCountBox()),
+          const PageCountBox(),
 
           /// More Button
           const BookMenuButton(),

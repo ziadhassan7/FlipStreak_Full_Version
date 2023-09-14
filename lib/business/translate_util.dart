@@ -1,16 +1,26 @@
+import 'package:flip_streak/data/shared_pref/hive_client.dart';
 import 'package:translator_plus/translator_plus.dart';
-import '../../app_constants/locals.dart';
 
 class TranslateUtil {
 
-  static Future<String> translate(String? text,
-      {String fromLanguage = languageAuto, String toLanguage = languageArabic,}) async {
+  static final HiveClient _hiveClient = HiveClient();
+  static final translator = GoogleTranslator();
 
-    final translator = GoogleTranslator();
+  static Future<String> translate(String? text,) async {
 
-    var translation = await translator.translate(text!, from: 'en', to: 'ar');
+    // Get Current Language
+    String source = _hiveClient.getLanguageSource();
+    String to = _hiveClient.getLanguageTo();
+
+    // Translate
+    var translation = await translator.translate(text!, from: source, to: to);
 
     return translation.text;
+  }
+
+  //Fire up translation
+  static init() async {
+    await translator.translate(".", from: "en", to: "en");
   }
 
 }

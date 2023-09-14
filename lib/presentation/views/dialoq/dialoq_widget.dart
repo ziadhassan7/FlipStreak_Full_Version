@@ -15,6 +15,8 @@ class DialogWidget {
   final Color dominantButtonColor;
   final Function()? dominantButtonFunction;
 
+  final bool dominateButtonCloseAfterFunction;
+
   final Widget child;
 
 
@@ -28,6 +30,8 @@ class DialogWidget {
         this.dominantButtonColor = colorAccent,
         this.dominantButtonFunction,
         this.isDisableButtons = false,
+
+        this.dominateButtonCloseAfterFunction = true,
 
         required this.child,
 
@@ -66,7 +70,9 @@ class DialogWidget {
                             onPressed: (){
                               dominantButtonFunction!();
                               //close window
-                              Navigator.pop(context);
+                              if(dominateButtonCloseAfterFunction){
+                                Navigator.pop(context);
+                              }
                             },
 
                             style: ButtonStyle(

@@ -1,13 +1,14 @@
 import 'dart:async';
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flip_streak/business/print_debug.dart';
-import 'package:flip_streak/presentation/views/dialoq/translate_dialog/no_internet_view.dart';
+import 'package:flip_streak/presentation/views/dialoq/translate_dialog/view/language_tool_bar/language_tool_bar.dart';
+import 'package:flip_streak/presentation/views/dialoq/translate_dialog/view/no_internet_view.dart';
 import 'package:flip_streak/presentation/views/dialoq/translate_dialog/translate_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import '../../../../app_constants/color_constants.dart';
-import '../../../../provider/translation_provider.dart';
-import '../../text_inria_sans.dart';
+import '../../../../../app_constants/color_constants.dart';
+import '../../../../../provider/translation_provider.dart';
+import '../../../text_inria_sans.dart';
 
 class TranslateView extends StatefulWidget {
   const TranslateView(this.selectedText, {Key? key}) : super(key: key);
@@ -64,10 +65,10 @@ class _TranslateViewState extends State<TranslateView> {
 
           child: Column(
             children: [
+              const LanguageToolbar(),
+
               Theme(
-
                 data: ThemeData(),
-
                 child: TextFormField(
 
                   decoration: InputDecoration(
@@ -76,8 +77,8 @@ class _TranslateViewState extends State<TranslateView> {
                         borderRadius: BorderRadius.circular(25),
                       )
                   ),
-                  maxLines: 5,
                   controller: TranslateDialog.textController,
+                  maxLines: 4,
                 ),
               ),
 
@@ -103,10 +104,14 @@ class _TranslateViewState extends State<TranslateView> {
 
                                 child: Expanded(
                                     child: SingleChildScrollView(
-                                      child: TextInriaSans(
-                                          snapshot.data,
-                                          weight: FontWeight.bold,
-                                          textDirection: TextDirection.rtl,
+                                      child: SizedBox(
+                                        width: 100,
+                                        child: TextInriaSans(
+                                            snapshot.data,
+                                            weight: FontWeight.bold,
+                                            textDirection: TextDirection.rtl,
+                                            maxLine: 1000,
+                                        ),
                                       )
                                     )
                                 )

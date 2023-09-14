@@ -18,8 +18,7 @@ class TranslationProvider extends StateNotifier<Future<String>>{
     String toLanguage = languageArabic,}) async {
 
 
-    state = TranslateUtil.translate(
-        text, fromLanguage: fromLanguage, toLanguage: toLanguage);
+    state = TranslateUtil.translate(text);
   }
 
 }

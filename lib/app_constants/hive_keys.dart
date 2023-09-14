@@ -10,6 +10,9 @@ const String FIRST_TIME_FLIP = "FIRST_TIME_FLIP";
 const String STREAK_COUNTER = "STREAK_COUNTER";
 // streak state
 const String STREAK_STATE = "STREAK_STATE";
+// language
+const String LANGUAGE_SOURCE = "LANGUAGE_SOURCE";
+const String LANGUAGE_TO = "LANGUAGE_TO";
 
 /// STATES CONSTANTS
 const int SAME_DATE_STATE = 0;
