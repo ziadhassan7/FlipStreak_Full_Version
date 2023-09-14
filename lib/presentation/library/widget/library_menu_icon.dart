@@ -16,6 +16,8 @@ class LibraryMenuIcon extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return MenuWidget(
+      //iconColor: Colors.black,
+
       menuItems: [
         PopupMenuItem<int>(
           value: 0,
@@ -27,13 +29,8 @@ class LibraryMenuIcon extends ConsumerWidget {
           child: TextInriaSans("Mark As Complete", color: colorAccent,),
         ),
 
-        const PopupMenuItem<int>(
-          value: 2,
-          child: Divider(color: Colors.black12,),
-        ),
-
         PopupMenuItem<int>(
-          value: 3,
+          value: 2,
           child: TextInriaSans("Delete book", color: colorAccent,),
         ),
       ],
@@ -47,7 +44,7 @@ class LibraryMenuIcon extends ConsumerWidget {
           ref.read(bookListProvider.notifier).toggleAsCompleted(currentBook);
         }
 
-        if (value == 3) {
+        if (value == 2) {
           DeleteBookDialog(context, ref, bookId: currentBook.id,);
         }
       }

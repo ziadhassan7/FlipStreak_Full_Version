@@ -7,12 +7,14 @@ class MenuWidget extends StatelessWidget {
         required this.menuItems,
         required this.functions,
         this.backgroundColor = colorBackground,
-        this.foregroundColor = colorAccent
+        this.foregroundColor = colorAccent,
+        this.iconColor = colorAccent,
   }) : super(key: key);
 
   //Colors
   final Color backgroundColor;
   final Color foregroundColor;
+  final Color iconColor;
   //Main
   final List<PopupMenuEntry<int>> menuItems;
   final Function(int) functions;
@@ -23,7 +25,7 @@ class MenuWidget extends StatelessWidget {
       return Consumer(
         builder: (context, ref, _) {
           return PopupMenuButton(
-              icon: const Icon(Icons.more_vert, color: colorAccent,),
+              icon: Icon(Icons.more_vert, color: iconColor,),
               color: backgroundColor,
               surfaceTintColor: backgroundColor,
               elevation: 10,

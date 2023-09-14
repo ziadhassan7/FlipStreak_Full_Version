@@ -1,13 +1,11 @@
 import 'package:flip_streak/presentation/detail/screen/detail_page.dart';
 import 'package:flip_streak/presentation/views/book_thumbnail.dart';
-import 'package:flip_streak/presentation/views/dialoq/category_attacher/category_attacher_dialog.dart';
 import 'package:flip_streak/presentation/views/text_inria_sans.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
-import '../../../app_constants/color_constants.dart';
 import '../../../business/app_wise/controllers/book_controller.dart';
 import '../../../business/route_util.dart';
 import '../../../data/model/book_model.dart';
+import 'library_menu_icon.dart';
 
 class ListItem extends StatelessWidget {
   const ListItem({Key? key, required this.book}) : super(key: key);
@@ -84,19 +82,7 @@ class ListItem extends StatelessWidget {
 
                 child: Expanded(
                   flex: 1,
-                  child: Consumer(
-                    builder: (context, ref, _) {
-
-                      return IconButton(
-                        onPressed: (){
-                          CategoryAttacherDialog(context, ref, currentBook: book);
-                        },
-
-                        icon: const Icon(Icons.label_outline_rounded,
-                          color: colorAccent, size: 23,)
-                      );
-                    }
-                  ),
+                  child: LibraryMenuIcon(currentBook: book,),
                 ),
               )
             ],
