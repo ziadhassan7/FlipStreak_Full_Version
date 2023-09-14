@@ -1,4 +1,3 @@
-import 'package:flip_streak/app_constants/color_constants.dart';
 import 'package:flip_streak/data/shared_pref/hive_client.dart';
 import 'package:flutter/material.dart';
 import 'language_picker.dart';
@@ -26,7 +25,7 @@ class _LanguageToolbarState extends State<LanguageToolbar> {
         ),
 
         // Converter
-        convertButton(),
+        const Icon(Icons.arrow_forward_ios, size: 14, color: Colors.black54,),
 
         // To Language
         LanguagePicker(
@@ -37,33 +36,11 @@ class _LanguageToolbarState extends State<LanguageToolbar> {
     );
   }
 
-  Widget convertButton(){
-    return IconButton(
-      onPressed:() {
-        setState(() {
-          swapLanguages();
-        });
-      },
-      icon: const Icon(Icons.compare_arrows_rounded),
-      color: colorAccent,
-    );
-  }
-
   String getSourceLanguage(){
     return _hiveClient.getLanguageSource();
   }
 
   String getToLanguage(){
     return _hiveClient.getLanguageTo();
-  }
-
-  swapLanguages(){
-    String source= getSourceLanguage();
-    String to= getToLanguage();
-
-    if(source != "Auto Detect"){
-      _hiveClient.updateLanguageSource(to);
-      _hiveClient.updateLanguageTo(source);
-    }
   }
 }
