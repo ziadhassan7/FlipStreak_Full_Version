@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../../../data/model/note_model.dart';
 import '../../../styles/box_decoration.dart';
+import '../../../styles/device_screen.dart';
 
 class NoteItem extends ConsumerWidget {
   const NoteItem({Key? key, required this.note, this.isBigView = false}) : super(key: key);
@@ -41,6 +42,7 @@ class NoteItem extends ConsumerWidget {
           children: [
             Expanded(
               child: Container(
+                width: DeviceScreen(context).width,
                 padding: EdgeInsets.symmetric(vertical: 25, horizontal: isBigView?36:25),
 
                 decoration: CustomDecoration(

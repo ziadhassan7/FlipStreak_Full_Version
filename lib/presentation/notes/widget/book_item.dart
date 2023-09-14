@@ -23,6 +23,8 @@ class BookItem extends StatelessWidget {
       }
     }
 
+    currentList.sort((a, b) => b.noteId.compareTo(a.noteId));
+
     return SizedBox(
       height: 350,
       width: MediaQuery.of(context).size.width,
