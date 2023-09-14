@@ -1,4 +1,4 @@
-import 'package:simplytranslate/simplytranslate.dart';
+import 'package:translator_plus/translator_plus.dart';
 import '../../app_constants/locals.dart';
 
 class TranslateUtil {
@@ -6,15 +6,11 @@ class TranslateUtil {
   static Future<String> translate(String? text,
       {String fromLanguage = languageAuto, String toLanguage = languageArabic,}) async {
 
-    final gt = SimplyTranslator(EngineType.google);
+    final translator = GoogleTranslator();
 
+    var translation = await translator.translate(text!, from: 'en', to: 'ar');
 
-    String textResult = await gt.trSimply(
-        text!,
-        'en', //<------ auto may cause a problem
-        'ar');
-
-    return textResult;
+    return translation.text;
   }
 
 }

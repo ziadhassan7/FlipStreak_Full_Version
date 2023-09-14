@@ -1,3 +1,7 @@
+import 'dart:async';
+import 'package:connectivity_plus/connectivity_plus.dart';
+import 'package:flip_streak/business/print_debug.dart';
+import 'package:flip_streak/presentation/views/dialoq/translate_dialog/no_internet_view.dart';
 import 'package:flip_streak/presentation/views/dialoq/translate_dialog/translate_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -5,81 +9,122 @@ import '../../../../app_constants/color_constants.dart';
 import '../../../../provider/translation_provider.dart';
 import '../../text_inria_sans.dart';
 
-class TranslateView extends StatelessWidget {
+class TranslateView extends StatefulWidget {
   const TranslateView(this.selectedText, {Key? key}) : super(key: key);
 
   final String? selectedText;
 
   @override
-  Widget build(BuildContext context) {
-    TranslateDialog.textController.text = selectedText ?? "";
+  State<TranslateView> createState() => _TranslateViewState();
+}
 
-    return Container(
-        height: MediaQuery.of(context).size.height * 0.4,
-        padding: const EdgeInsets.all(10),
+class _TranslateViewState extends State<TranslateView> {
 
-        child: Column(
-          children: [
-            Theme(
+  StreamSubscription? internetConnection;
+  bool isOffline = true;
 
-              data: ThemeData(),
+  @override
+  void initState() {
+    //Listen to connectivity changes
+    internetConnection = Connectivity().onConnectivityChanged.listen((ConnectivityResult result) {
 
-              child: TextFormField(
+      PrintDebug("contecgifgnd:", result);
 
-                decoration: InputDecoration(
-                    fillColor: colorAccent,
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(25),
-                    )
-                ),
-                maxLines: 5,
-                controller: TranslateDialog.textController,
-              ),
-            ),
+      if(result == ConnectivityResult.none){
+        //No Connection --
+        setState(() {
+          isOffline = true;
+        });
+      }else if(result == ConnectivityResult.mobile){
+        //Connection: (mobile data)
+        setState(() {
+          isOffline = false;
+        });
+      }else if(result == ConnectivityResult.wifi){
+        //Connection: (wifi)
+        setState(() {
+          isOffline = false;
+        });
+      }
+    });
 
-            const SizedBox(height: 10,),
-
-            Consumer(
-                builder: (context, ref, _) {
-
-
-                  return FutureBuilder(
-                      future: ref.watch(translationProvider),
-                      builder: (context, AsyncSnapshot snapshot) {
-
-                        return snapshot.hasData
-                          ? Expanded(
-                          child: Container(
-                              padding: const EdgeInsets.all(10),
-                              width: double.infinity,
-                              decoration: BoxDecoration(
-                                  color: colorAccent.withOpacity(0.2),
-                                  borderRadius: const BorderRadius.all(Radius.circular(25))
-                              ),
-
-                              child: Expanded(
-                                  child: SingleChildScrollView(
-                                    child: TextInriaSans(
-                                        snapshot.data,
-                                        weight: FontWeight.bold,
-                                        textDirection: TextDirection.rtl,
-                                    )
-                                  )
-                              )
-                          ),
-                        )
-                        : const Center(child: CircularProgressIndicator(),);
-                      }
-                  );
-                }),
-          ],
-        )
-    );
+    super.initState();
   }
 
+  @override
+  Widget build(BuildContext context) {
+    TranslateDialog.textController.text = widget.selectedText ?? "";
 
-/*Future<String> getTranslatedText(context, selectedText) async {
-    String translatedText = await TranslateHandler.translate(selectedText);
-    return translatedText;
-  }*/
+    return
+      isOffline
+        ? const NoInternetView()
+        : Container(
+          height: MediaQuery.of(context).size.height * 0.4,
+          padding: const EdgeInsets.all(10),
+
+          child: Column(
+            children: [
+              Theme(
+
+                data: ThemeData(),
+
+                child: TextFormField(
+
+                  decoration: InputDecoration(
+                      fillColor: colorAccent,
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(25),
+                      )
+                  ),
+                  maxLines: 5,
+                  controller: TranslateDialog.textController,
+                ),
+              ),
+
+              const SizedBox(height: 10,),
+
+              Consumer(
+                  builder: (context, ref, _) {
+
+
+                    return FutureBuilder(
+                        future: ref.watch(translationProvider),
+                        builder: (context, AsyncSnapshot snapshot) {
+
+                          return snapshot.hasData
+                            ? Expanded(
+                            child: Container(
+                                padding: const EdgeInsets.all(10),
+                                width: double.infinity,
+                                decoration: BoxDecoration(
+                                    color: colorAccent.withOpacity(0.2),
+                                    borderRadius: const BorderRadius.all(Radius.circular(25))
+                                ),
+
+                                child: Expanded(
+                                    child: SingleChildScrollView(
+                                      child: TextInriaSans(
+                                          snapshot.data,
+                                          weight: FontWeight.bold,
+                                          textDirection: TextDirection.rtl,
+                                      )
+                                    )
+                                )
+                            ),
+                          )
+                          : const Center(child: CircularProgressIndicator(),);
+                        }
+                    );
+                  }),
+            ],
+          )
+      );
+  }
+
+  // Be sure to cancel subscription after you are done
+  @override
+  dispose() {
+    if(internetConnection != null) internetConnection!.cancel();
+    super.dispose();
+  }
 }
