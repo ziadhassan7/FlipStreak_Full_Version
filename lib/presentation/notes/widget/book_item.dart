@@ -67,7 +67,9 @@ class BookItem extends StatelessWidget {
               scrollDirection: Axis.horizontal,
               itemCount: currentList.length,
               itemBuilder: (context, index){
-              return NoteItem(note: currentList[index]);
+              return SizedBox(
+                  width: 210, height: 160,
+                  child: NoteItem(note: currentList[index]));
             }),
           )
         ],

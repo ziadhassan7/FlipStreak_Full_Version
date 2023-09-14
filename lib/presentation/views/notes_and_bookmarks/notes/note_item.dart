@@ -1,4 +1,5 @@
 import 'package:flip_streak/app_constants/color_constants.dart';
+import 'package:flip_streak/presentation/styles/padding.dart';
 import 'package:flip_streak/presentation/views/dialoq/delete_dialog/delete_note_dialog.dart';
 import 'package:flip_streak/presentation/views/dialoq/note_dialog/add_note_dialog.dart';
 import 'package:flip_streak/presentation/views/text_inria_sans.dart';
@@ -8,15 +9,16 @@ import '../../../../../data/model/note_model.dart';
 import '../../../styles/box_decoration.dart';
 
 class NoteItem extends ConsumerWidget {
-  const NoteItem({Key? key, required this.note}) : super(key: key);
+  const NoteItem({Key? key, required this.note, this.isBigView = false}) : super(key: key);
 
   final NoteModel note;
+  final bool isBigView;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
 
     return Padding(
-      padding: const EdgeInsets.only(top: 30, bottom: 30, left: 30),
+      padding: const EdgeInsets.only(top: 25, bottom: 20, left: 30),
 
       child: InkWell(
         //Tap
@@ -35,37 +37,63 @@ class NoteItem extends ConsumerWidget {
 
 
         //Widget
-        child: Container(
-          padding: const EdgeInsets.symmetric(vertical: 30, horizontal: 20),
-          width: 180,
-          height: 160,
+        child: Stack(
+          children: [
+            Expanded(
+              child: Container(
+                padding: EdgeInsets.symmetric(vertical: 25, horizontal: isBigView?36:25),
 
-          decoration: CustomDecoration(
-            backgroundColor: Colors.white,
-            borderColor: colorAccent.withOpacity(0.4),
-            radius: 20,
-            borderWidth: 2,
-          ),
+                decoration: CustomDecoration(
+                  backgroundColor: Colors.white,
+                  borderColor: colorAccent.withOpacity(0.4),
+                  radius: 20,
+                  borderWidth: 2,
+                ),
 
 
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
 
-            children: [
+                  children: [
 
-              customText(
-                  note.noteTitle ?? "",
-                  isTitle: true),
+                    Visibility(
+                      visible: note.noteTitle != null,
+                      child: customText(
+                          note.noteTitle ?? "",
+                          isTitle: true),
+                    ),
 
-              const SizedBox(height: 15,),
+                    const SizedBox(height: 15,),
 
-              Expanded(
-                child: customText(
-                    note.noteBody,
-                    isTitle: false),
+                    Expanded(
+                      child: customText(
+                          note.noteBody,
+                          isTitle: false),
+                    ),
+                  ],
+                ),
               ),
-            ],
-          ),
+            ),
+
+            Visibility(
+            visible: isBigView,
+            child: Row(
+              children: [
+                const Spacer(),
+                Container(
+                  padding: const CustomPadding(ver: 10, hor: 14),
+                  decoration: const BoxDecoration(
+                    color: colorAccent,
+                    borderRadius: BorderRadius.only(
+                      bottomRight: Radius.circular(40.0),
+                      bottomLeft: Radius.circular(40.0)),),
+
+                child: TextInriaSans("${note.notePage}", color: Colors.white, size: 14,)),
+
+                const SizedBox(width: 40,)
+              ],
+            )),
+          ],
         ),
       ),
     );
@@ -74,8 +102,8 @@ class NoteItem extends ConsumerWidget {
   Widget customText(String text, {required bool isTitle}) {
     return TextInriaSans(
       text,
-      weight: FontWeight.bold,
-      color: isTitle? Colors.black87 : Colors.black54,
+      weight: isTitle? FontWeight.bold : FontWeight.normal,
+      color: isTitle? colorAccent : Colors.black,
       size: isTitle? 17 : 16,
       maxLine: isTitle? 1: 10,
       overflow: TextOverflow.ellipsis,

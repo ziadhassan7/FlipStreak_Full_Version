@@ -42,7 +42,7 @@ class SingleBookNotePage extends StatelessWidget {
 
               child: SizedBox(
                   height: 340,
-                  child: NoteItem(note: notesList[index],)),
+                  child: NoteItem(note: notesList[index], isBigView: true,)),
             );
           }
         ),

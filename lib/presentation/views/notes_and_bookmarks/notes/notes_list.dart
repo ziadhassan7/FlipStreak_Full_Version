@@ -23,7 +23,9 @@ class NotesList extends ConsumerWidget {
           itemCount: notes.length,
           itemBuilder: (context, index) {
 
-              return NoteItem(note: notes[index],);
+              return SizedBox(
+                  width: 210, height: 160,
+                  child: NoteItem(note: notes[index],));
           })
 
       : Center(child: TextInriaSans("Nothing here"),);

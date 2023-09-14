@@ -32,8 +32,6 @@ class NotesPage extends ConsumerWidget {
           /// Title
           const NotePageTopWidget(),
 
-          const Spacer(),
-
           /// Screen Body (Notes / Empty Notes)
           bookNames.isNotEmpty
           ? Expanded(
@@ -45,9 +43,16 @@ class NotesPage extends ConsumerWidget {
             ),
           )
 
-          : const EmptyNotesWidget(),
+          : const Expanded(
+            child: Column(
+              children: [
+                Spacer(),
+                EmptyNotesWidget(),
+                Spacer(),
+              ],
+            ),
+          ),
 
-          const Spacer(),
         ],
       ),
     );
