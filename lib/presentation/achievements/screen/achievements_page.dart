@@ -1,7 +1,6 @@
 import 'package:flip_streak/business/app_wise/controllers/book_controller.dart';
 import 'package:flip_streak/presentation/achievements/view/today_goal_widget.dart';
 import 'package:flip_streak/presentation/achievements/view/top_widget.dart';
-import 'package:flip_streak/presentation/views/text_inria_sans.dart';
 import 'package:flip_streak/provider/book_list_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -21,34 +20,42 @@ class AchievementsPage extends ConsumerWidget {
     return Scaffold(
       backgroundColor: colorPrimary.withOpacity(0.4),
 
-      body: FutureBuilder(
-        future: getCompletedBooks(books),
-        builder: (context, AsyncSnapshot<List<BookModel>> snapshot) {
+      body: SafeArea(
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              const AchievementTopWidget(),
 
-          if(snapshot.hasData){
+              const TodayGoalWidget(),
 
-            return snapshot.data!.isNotEmpty
-                ? SingleChildScrollView(
-                    child: Column(
-                      children: [
-                        const AchievementTopWidget(),
 
-                        const TodayGoalWidget(),
+              FutureBuilder(
+                future: getCompletedBooks(books),
+                builder: (context, AsyncSnapshot snapshot) {
 
-                        BookGoalWidget(completedBooks: getCompletedOnly(snapshot.data!).length,),
 
-                        CompletedBooksWidget(books: snapshot.data!)
-                      ],
-                    ),
-                  )
+                  if(snapshot.hasData){
 
-                : Center(child: TextInriaSans("You haven't added any books yet :D"),);
+                    return snapshot.data!.isNotEmpty
+                        ? Column(
+                            children: [
+                              BookGoalWidget(completedBooks: getCompletedOnly(snapshot.data!).length,),
 
-          } else {
-            return const Center(child: CircularProgressIndicator(),);
-          }
-        }
-      ),
+                              CompletedBooksWidget(books: snapshot.data!)
+                            ],
+                          )
+
+                        : const BookGoalWidget(completedBooks: 0,);
+
+                  } else {
+                    return const Center(child: CircularProgressIndicator(),);
+                  }
+                }
+              )
+            ],
+          ),
+        ),
+      )
     );
   }
 

@@ -28,7 +28,7 @@ class GoalWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const CustomPadding(hor: 30, ver: 20),
+      padding: const CustomPadding(hor: 30, ver: 10),
 
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
