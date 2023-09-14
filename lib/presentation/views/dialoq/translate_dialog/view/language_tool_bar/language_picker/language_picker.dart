@@ -1,6 +1,6 @@
 import 'package:flip_streak/data/shared_pref/hive_client.dart';
 import 'package:flutter/material.dart';
-import '../../../../../../../app_constants/language_enum.dart';
+import '../../../../../../../data/model/language_model.dart';
 
 class LanguagePicker extends StatefulWidget {
   LanguagePicker({Key? key, required this.currentLanguage, required this.isSourceLanguage}) : super(key: key);
@@ -21,7 +21,7 @@ class _LanguagePickerState extends State<LanguagePicker> {
   Widget build(BuildContext context) {
 
     if(widget.isSourceLanguage){
-      languages = getListOfLanguages();
+      languages = LanguageModel.getList();
     } else {
       languages = getListOfLanguagesWithoutAuto();
     }
@@ -62,18 +62,9 @@ class _LanguagePickerState extends State<LanguagePicker> {
     }
   }
 
-  List<String> getListOfLanguages(){
-    List<String> list = [];
-    for(var lang in Language.values){
-      list.add(lang.name);
-    }
-
-    return list;
-  }
-
   List<String> getListOfLanguagesWithoutAuto(){
-    List<String> list = getListOfLanguages();
-    list.remove("auto");
+    List<String> list = LanguageModel.getList();
+    list.remove("Auto Detect");
     return list;
   }
 }
