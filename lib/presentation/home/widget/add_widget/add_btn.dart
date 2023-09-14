@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'package:file_picker/file_picker.dart';
+import 'package:flip_streak/provider/nav_bar_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:path/path.dart';
@@ -37,38 +38,40 @@ class AddIconButton extends StatelessWidget {
 
 
   void addBook(WidgetRef ref) {
-    {
-      //pick file
-      RouteUtil.pickFiles().then((files) async {
-        //upon success open picker page
+    //pick file
+    RouteUtil.pickFiles().then((files) async {
+      //upon success open picker page
 
-        if(files != null){
+      if(files != null){
 
-          for(PlatformFile file in files){ //add each book in list
+        for(PlatformFile file in files){ //add each book in list
 
-            if(await isDuplicate(basename(file.path!)) == false) {
-              String newPath = await FileUtility.copyFile(File(file.path!));
+          if(await isDuplicate(basename(file.path!)) == false) {
+            String newPath = await FileUtility.copyFile(File(file.path!));
 
-              model = BookModel(id: basename(file.path!),
-                path: newPath,
-                bookmarks: null,
-                lastPage: 0,
-                totalPages: await getTotalPages(newPath),
-                category: null,
-                addDate: DateTime.now().toString(),
-                completeDate: null,
-                isComplete: 0,
-              );
+            model = BookModel(id: basename(file.path!),
+              path: newPath,
+              bookmarks: null,
+              lastPage: 0,
+              totalPages: await getTotalPages(newPath),
+              category: null,
+              addDate: DateTime.now().toString(),
+              completeDate: null,
+              isComplete: 0,
+            );
 
-              bookClient.createItem(model);
-              ref.read(bookListProvider.notifier).listFiles();
-            }
+            bookClient.createItem(model);
+            ref.read(bookListProvider.notifier).listFiles();
           }
-
-
         }
-      });
-    }
+
+
+      }
+
+    // Open library page, when adding books
+    }).whenComplete(() {
+      ref.read(navBarProvider.notifier).changeIndex(1);
+    });
   }
 
 

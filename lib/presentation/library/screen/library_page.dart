@@ -88,9 +88,9 @@ class LibraryPage extends ConsumerWidget {
 
                         List date = snapshot.data;
 
-                        //Sort by name
+                        //sort by add date
                         date.sort((a, b) {
-                          return a.id.compareTo(b.id);
+                          return b.addDate.compareTo(a.addDate);
                         });
 
                         return ListView.builder(
