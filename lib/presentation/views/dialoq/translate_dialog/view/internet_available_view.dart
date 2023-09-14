@@ -1,3 +1,6 @@
+import 'package:flip_streak/business/text_to_speech_util.dart';
+import 'package:flip_streak/presentation/styles/box_decoration.dart';
+import 'package:flip_streak/presentation/styles/padding.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../../../app_constants/color_constants.dart';
@@ -39,16 +42,40 @@ class InternetAvailableView extends StatelessWidget {
   static _sourceTextWidget(){
     return Theme(
       data: ThemeData(),
-      child: TextFormField(
-
-        decoration: InputDecoration(
-            fillColor: colorAccent,
-            border: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(25),
-            )
+      child: Container(
+        padding: const CustomPadding(ver: 4, hor: 10),
+        decoration: CustomDecoration(
+          borderColor: Colors.black54,
+          borderWidth: 1,
+          radius: 25
         ),
-        controller: TranslateDialog.textController,
-        maxLines: 4,
+
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Expanded(
+              flex: 6,
+              child: TextFormField(
+
+                decoration: const InputDecoration(
+                    fillColor: colorAccent,
+                    border: InputBorder.none
+                ),
+                controller: TranslateDialog.textController,
+                maxLines: 4,
+              ),
+            ),
+
+            Expanded(
+              flex: 1,
+              child: IconButton(
+                  onPressed: (){
+                    TextToSpeechUtil.speak(TranslateDialog.textController.text);
+                  },
+                  icon: const Icon(Icons.volume_down_rounded, size: 18,)),
+            )
+          ],
+        ),
       ),
     );
   }
