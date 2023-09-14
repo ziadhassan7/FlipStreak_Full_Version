@@ -1,14 +1,9 @@
 import 'dart:async';
 import 'package:connectivity_plus/connectivity_plus.dart';
-import 'package:flip_streak/business/print_debug.dart';
-import 'package:flip_streak/presentation/views/dialoq/translate_dialog/view/language_tool_bar/language_tool_bar.dart';
+import 'package:flip_streak/presentation/views/dialoq/translate_dialog/view/internet_available_view.dart';
 import 'package:flip_streak/presentation/views/dialoq/translate_dialog/view/no_internet_view.dart';
 import 'package:flip_streak/presentation/views/dialoq/translate_dialog/translate_dialog.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
-import '../../../../../app_constants/color_constants.dart';
-import '../../../../../provider/translation_provider.dart';
-import '../../../text_inria_sans.dart';
 
 class TranslateView extends StatefulWidget {
   const TranslateView(this.selectedText, {Key? key}) : super(key: key);
@@ -24,12 +19,13 @@ class _TranslateViewState extends State<TranslateView> {
   StreamSubscription? internetConnection;
   bool isOffline = true;
 
+
+  /// Init
+  ///                                                                           / Handle Internet State
   @override
   void initState() {
     //Listen to connectivity changes
     internetConnection = Connectivity().onConnectivityChanged.listen((ConnectivityResult result) {
-
-      PrintDebug("contecgifgnd:", result);
 
       if(result == ConnectivityResult.none){
         //No Connection --
@@ -52,6 +48,7 @@ class _TranslateViewState extends State<TranslateView> {
     super.initState();
   }
 
+  /// Build
   @override
   Widget build(BuildContext context) {
     TranslateDialog.textController.text = widget.selectedText ?? "";
@@ -59,73 +56,10 @@ class _TranslateViewState extends State<TranslateView> {
     return
       isOffline
         ? const NoInternetView()
-        : Container(
-          height: MediaQuery.of(context).size.height * 0.4,
-          padding: const EdgeInsets.all(10),
-
-          child: Column(
-            children: [
-              const LanguageToolbar(),
-
-              Theme(
-                data: ThemeData(),
-                child: TextFormField(
-
-                  decoration: InputDecoration(
-                      fillColor: colorAccent,
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(25),
-                      )
-                  ),
-                  controller: TranslateDialog.textController,
-                  maxLines: 4,
-                ),
-              ),
-
-              const SizedBox(height: 10,),
-
-              Consumer(
-                  builder: (context, ref, _) {
-
-
-                    return FutureBuilder(
-                        future: ref.watch(translationProvider),
-                        builder: (context, AsyncSnapshot snapshot) {
-
-                          return snapshot.hasData
-                            ? Expanded(
-                            child: Container(
-                                padding: const EdgeInsets.all(10),
-                                width: double.infinity,
-                                decoration: BoxDecoration(
-                                    color: colorAccent.withOpacity(0.2),
-                                    borderRadius: const BorderRadius.all(Radius.circular(25))
-                                ),
-
-                                child: Expanded(
-                                    child: SingleChildScrollView(
-                                      child: SizedBox(
-                                        width: 100,
-                                        child: TextInriaSans(
-                                            snapshot.data,
-                                            weight: FontWeight.bold,
-                                            textDirection: TextDirection.rtl,
-                                            maxLine: 1000,
-                                        ),
-                                      )
-                                    )
-                                )
-                            ),
-                          )
-                          : const Center(child: CircularProgressIndicator(),);
-                        }
-                    );
-                  }),
-            ],
-          )
-      );
+        : const InternetAvailableView();
   }
 
+  /// Dispose
   // Be sure to cancel subscription after you are done
   @override
   dispose() {

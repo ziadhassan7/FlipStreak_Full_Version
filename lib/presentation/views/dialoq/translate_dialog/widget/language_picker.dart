@@ -1,6 +1,6 @@
 import 'package:flip_streak/data/shared_pref/hive_client.dart';
 import 'package:flutter/material.dart';
-import '../../../../../../../data/model/language_model.dart';
+import '../../../../../data/model/language_model.dart';
 
 class LanguagePicker extends StatefulWidget {
   LanguagePicker({Key? key, required this.currentLanguage, required this.isSourceLanguage}) : super(key: key);
@@ -33,8 +33,11 @@ class _LanguagePickerState extends State<LanguagePicker> {
       // Initial Value
       value: widget.currentLanguage,
 
+      // Text Style
+      style: const TextStyle(fontSize: 13, fontWeight: FontWeight.bold, color: Colors.black87),
+
       // Down Arrow Icon
-      icon: const Icon(Icons.keyboard_arrow_down),
+      icon: const Icon(Icons.arrow_drop_down_rounded, color: Colors.black87,),
 
       // Array list of items
       items: languages.map((item) {
