@@ -58,6 +58,7 @@ class AddIconButton extends StatelessWidget {
               addDate: DateTime.now().toString(),
               completeDate: null,
               isComplete: 0,
+              lastReadDate: null
             );
 
             bookClient.createItem(model);

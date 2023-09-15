@@ -11,6 +11,8 @@ const String columnAddDate = "add_date";
 
 const String columnCompleteDate = "complete_date";
 const String columnIsComplete = "is_complete"; //0 false, 1 true
+
+const String columnLastReadDate = "last_read_date";
 const String columnRate = "rate";
 
 

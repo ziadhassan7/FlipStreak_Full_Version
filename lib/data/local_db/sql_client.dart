@@ -39,7 +39,8 @@ class SqlClient {
     $columnCategory $textType,
     $columnAddDate $textType,
     $columnCompleteDate $textType,
-    $columnIsComplete $intType
+    $columnIsComplete $intType,
+    $columnLastReadDate $textType
     )
     ''');
 

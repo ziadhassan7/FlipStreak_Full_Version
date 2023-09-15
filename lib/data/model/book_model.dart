@@ -11,6 +11,7 @@ class BookModel {
   final String addDate;
   final String? completeDate;
   final int isComplete;
+  final String? lastReadDate;
 
   BookModel({
     required this.id,
@@ -22,6 +23,7 @@ class BookModel {
     required this.addDate,
     this.completeDate,
     required this.isComplete,
+    this.lastReadDate,
   });
 
 
@@ -37,6 +39,7 @@ class BookModel {
     String? addDate,
     String? completeDate,
     int? isComplete,
+    String? lastReadDate,
   }){
     return BookModel(
         id: id ?? this.id,
@@ -47,7 +50,8 @@ class BookModel {
         category: category ?? this.category,
         addDate: addDate ?? this.addDate,
         completeDate: completeDate ?? this.completeDate,
-        isComplete: isComplete ?? this.isComplete,);
+        isComplete: isComplete ?? this.isComplete,
+        lastReadDate: lastReadDate ?? this.lastReadDate);
   }
 
 
@@ -63,6 +67,7 @@ class BookModel {
       addDate: map[columnAddDate],
       completeDate: map[columnCompleteDate],
       isComplete: map[columnIsComplete],
+      lastReadDate: map[columnLastReadDate]
     );
   }
 
@@ -78,6 +83,7 @@ class BookModel {
       columnAddDate: addDate,
       columnCompleteDate: completeDate,
       columnIsComplete: isComplete,
+      columnLastReadDate: lastReadDate
     };
   }
 }
