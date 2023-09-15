@@ -65,7 +65,7 @@ class LastBookWidget extends ConsumerWidget {
                     flex: 4,
                     child: InkWell(
                       onTap: () async => await onTap(context, model),
-                      child: BookThumbnail(filePath: model.path, page: 1,)),
+                      child: BookThumbnail(filePath: model.path, page: model.lastPage,)),
                   ),
 
                   const Spacer(),

@@ -4,6 +4,7 @@ import 'package:flip_streak/presentation/home/widget/streak_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:syncfusion_flutter_pdfviewer/pdfviewer.dart';
+import '../../../data/model/book_model.dart';
 import '../../../provider/book_list_provider.dart';
 import '../../views/text_inria_sans.dart';
 import '../widget/add_widget/add_widget.dart';
@@ -19,7 +20,7 @@ class HomePage extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
 
-    final files = ref.watch(bookListProvider);
+    final list = ref.watch(bookListProvider);
 
     return Scaffold(
       backgroundColor: colorPrimary,
@@ -50,18 +51,19 @@ class HomePage extends ConsumerWidget {
 
               /// List - Book List
               FutureBuilder(
-                  future: files,
+                  future: list,
                   builder: (context, AsyncSnapshot snapshot) {
 
                     if(snapshot.hasData) {
-                      List data = snapshot.data;
 
-                      if(data.isEmpty){
+                      List currentlyReading = getCurrentList(snapshot.data);
+
+                      if(currentlyReading.isEmpty){
                         return Container(
                             padding: const EdgeInsets.only(top: 150),
                             alignment: AlignmentDirectional.bottomCenter,
-                            child: TextInriaSans("Start  Adding  New  Books :)",
-                              weight: FontWeight.bold, color: Colors.brown.shade400, size: 16,));
+                            child: TextInriaSans("You haven't read anything yet! :)",
+                              weight: FontWeight.bold, color: Colors.brown.shade400, size: 14,));
 
                       } else {
 
@@ -71,10 +73,10 @@ class HomePage extends ConsumerWidget {
                           children: [
                             Padding(
                               padding: const EdgeInsets.symmetric(vertical:20, horizontal: 34),
-                              child: TextInriaSans("Recently Added", size: 18, weight: FontWeight.bold,),
+                              child: TextInriaSans("Recently Read", size: 18, weight: FontWeight.bold,),
                             ),
 
-                            BookListView(files: data),
+                            BookListView(list: currentlyReading),
                           ],
                         );
                       }
@@ -93,6 +95,23 @@ class HomePage extends ConsumerWidget {
         )
       ),
     );
+  }
+
+  getCurrentList(List<BookModel> list){
+    List<BookModel> currentList = [];
+
+    for(BookModel item in list){
+      if(item.lastReadDate != null){
+        currentList.add(item);
+      }
+    }
+
+    //sort by add date
+    currentList.sort((a, b) {
+      return b.lastReadDate!.compareTo(a.lastReadDate!);
+    });
+
+    return currentList.length > 6 ? currentList.getRange(0, 6) : currentList;
   }
 
 }

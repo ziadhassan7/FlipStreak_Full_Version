@@ -131,3 +131,16 @@ markAsIncomplete ({BookModel? book}) {
 }
 
 
+///                                                                             / Last Time Read
+updateLastReadDate ({BookModel? book}) {
+
+  book ??= bookModel;
+
+  bookModel = book.copyWith(
+      lastReadDate: DateTime.now().toString()
+  );
+
+  updateBookDetails();
+}
+
+

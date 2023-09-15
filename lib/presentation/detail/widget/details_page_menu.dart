@@ -10,9 +10,9 @@ import '../../views/menu/menu_widget.dart';
 import '../../views/text_inria_sans.dart';
 
 class DetailsPageMenu extends StatelessWidget {
-  DetailsPageMenu({Key? key}) : super(key: key);
+  const DetailsPageMenu({Key? key}) : super(key: key);
 
-  Function(Function())? updateState;
+  static Function(Function())? _updateState;
 
   @override
   Widget build(BuildContext context) {
@@ -35,7 +35,7 @@ class DetailsPageMenu extends StatelessWidget {
                   value: 2,
                   child: StatefulBuilder(
                     builder: (context, Function(Function()) setState) {
-                      updateState = setState;
+                      _updateState = setState;
                       return TextInriaSans(getCompleteButtonText(), color: colorAccent,);
                     }
                   ),
@@ -63,7 +63,7 @@ class DetailsPageMenu extends StatelessWidget {
                     ref.read(lastBookProvider.notifier).updateLastPage(bookModel, 0);
                   }
 
-                  updateState!((){});
+                  _updateState!((){});
                 }
               }
           );
