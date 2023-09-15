@@ -17,7 +17,8 @@ class TodayGoalWidget extends ConsumerWidget {
 
     return GoalWidget(
         title: "Today's Goal",
-        info: "Number of pages read today.",
+        info: "Pages read",
+        infoTail: "today.",
 
         currentProgress: currentProgress,
         goal: goal,

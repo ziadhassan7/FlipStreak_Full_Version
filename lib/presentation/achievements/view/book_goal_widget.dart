@@ -17,7 +17,8 @@ class BookGoalWidget extends ConsumerWidget {
 
     return GoalWidget(
         title: "Books' Goal",
-        info: "Number of books you've read this year.",
+        info: "Books read",
+        infoTail: "this year.",
 
         currentProgress: completedBooks,
         goal: goal,

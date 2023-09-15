@@ -10,6 +10,7 @@ class GoalWidget extends StatelessWidget {
     Key? key,
     required this.title,
     required this.info,
+    required this.infoTail,
     required this.currentProgress,
     required this.goal,
     required this.onEditPress,
@@ -18,6 +19,7 @@ class GoalWidget extends StatelessWidget {
 
   final String title;
   final String info;
+  final String infoTail;
   final int currentProgress;
   final int goal;
   final Function() onEditPress;
@@ -40,7 +42,7 @@ class GoalWidget extends StatelessWidget {
               /// Title - Text
               Padding(
                 padding: const CustomPadding(hor: 12),
-                child: TextInriaSans(title, size: 20,),
+                child: TextInriaSans(title, size: 18, color: Colors.black87,),
               ),
 
               const Spacer(),
@@ -48,14 +50,14 @@ class GoalWidget extends StatelessWidget {
               /// Edit - Button
               IconButton(
                   onPressed: onEditPress,
-                  icon: const Icon(Icons.edit_outlined, size: 18,))
+                  icon: const Icon(Icons.edit_outlined, size: 18, color: Colors.black87))
             ],
           ),
 
           alignmentWidget(),
 
           Container(
-            padding: const CustomPadding.all(20),
+            padding: const CustomPadding(ver: 16, hor: 20),
 
             decoration: CustomDecoration(
                 backgroundColor: Colors.white, //colorBackground
@@ -69,7 +71,13 @@ class GoalWidget extends StatelessWidget {
                 /// Info - Text
                 Expanded(
                     flex: 5,
-                    child: TextInriaSans(info, size: 16, overflow: TextOverflow.visible,)),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        TextInriaSans(info, size: 18, color: Colors.brown.shade900,),
+                        TextInriaSans(infoTail, size: 18, weight: FontWeight.bold, color: Colors.brown.shade900),
+                      ],
+                    )),
 
                 const SizedBox(width: 10,),
 
@@ -87,7 +95,7 @@ class GoalWidget extends StatelessWidget {
   }
 
   Widget alignmentWidget(){
-    return const SizedBox(height: 16,);
+    return const SizedBox(height: 10,);
   }
 
   bool isGoalReached(){
