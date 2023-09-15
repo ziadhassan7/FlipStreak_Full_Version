@@ -77,20 +77,28 @@ class NoteItem extends ConsumerWidget {
               ),
             ),
 
+
+            /// Page indicator
             Visibility(
             visible: isBigView,
             child: Row(
               children: [
                 const Spacer(),
                 Container(
-                  padding: const CustomPadding(ver: 10, hor: 14),
+                  padding: const CustomPadding(ver: 4, hor: 10),
                   decoration: const BoxDecoration(
                     color: colorAccent,
                     borderRadius: BorderRadius.only(
                       bottomRight: Radius.circular(40.0),
                       bottomLeft: Radius.circular(40.0)),),
 
-                child: TextInriaSans("${note.notePage}", color: Colors.white, size: 14,)),
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    TextInriaSans("pg.", color: Colors.white, size: 12,),
+                    TextInriaSans("${note.notePage}", color: Colors.white, size: 12,),
+                  ],
+                )),
 
                 const SizedBox(width: 40,)
               ],

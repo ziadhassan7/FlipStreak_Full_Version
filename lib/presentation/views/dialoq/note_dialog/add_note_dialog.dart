@@ -26,6 +26,8 @@ class AddNoteDialog {
         dominantButtonFunction: () async {
           if (formKey.currentState!.validate()) {
             saveNote(ref);
+            noteTitleController.clear();
+            noteBodyController.clear();
           }
         },
 
