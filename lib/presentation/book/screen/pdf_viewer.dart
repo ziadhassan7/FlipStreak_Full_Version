@@ -119,9 +119,29 @@ class PdfViewer extends ConsumerWidget {
 
             /// Indicator: Scrolling is Horizontal
             const HorizontalIndicatorWidget(),
+
+            disableTouchEvents(),
           ],
         ),
       ),
+    );
+  }
+
+  Widget disableTouchEvents(){
+    return Consumer(
+      builder: (context, ref, _) {
+        final isSelecting = ref.watch(selectTextProvider);
+
+        return Visibility(
+          visible: isSelecting, //disable scrolling, while selecting text
+
+          child: GestureDetector(
+            behavior: HitTestBehavior.translucent,
+            onTap: (){},
+            onHorizontalDragDown: (details){},
+          ),
+        );
+      }
     );
   }
 

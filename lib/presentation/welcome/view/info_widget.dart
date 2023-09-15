@@ -21,7 +21,15 @@ class InfoWidget extends StatelessWidget {
 
           const SizedBox(height: 10,),
 
-          TextInriaSans(getInfo(), size: 16, color: Colors.black87, maxLine: 4,),
+          RichText(
+            text: TextSpan(
+              text: getInfo(),
+              style: TextStyle(fontSize: 20, color: Colors.brown.shade700,),
+              children: <TextSpan>[
+                TextSpan(text: getInfoTail(), style: TextStyle(color: colorAccent.withOpacity(0.8))),
+              ],
+            ),
+          ),
         ],
       ),
     );
@@ -42,11 +50,22 @@ class InfoWidget extends StatelessWidget {
   getInfo(){
     switch(currentPage){
       case Pages.firstPage:
-        return "The number of pages you want to read every read";
+        return "The number of pages you want to read";
       case Pages.secondPage:
-        return "The number of books you want to read this year";
+        return "The number of books you want to read";
       case Pages.thirdPage:
         return "Get reminded if you are going to loose your streak";
+    }
+  }
+
+  getInfoTail(){
+    switch(currentPage){
+      case Pages.firstPage:
+        return " every day";
+      case Pages.secondPage:
+        return " this year";
+      case Pages.thirdPage:
+        return "";
     }
   }
 }
