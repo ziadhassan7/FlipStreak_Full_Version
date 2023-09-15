@@ -6,7 +6,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../business/app_wise/controllers/book_controller.dart';
 import '../../../business/route_util.dart';
 import '../../../data/model/book_model.dart';
-import '../../book/screen/book_page.dart';
+import '../../detail/screen/detail_page.dart';
 import '../../views/dialoq/delete_dialog/delete_book_dialoq.dart';
 
 class BookListItem extends ConsumerWidget {
@@ -27,7 +27,7 @@ class BookListItem extends ConsumerWidget {
         await globalizeCurrentBookModel(bookModel.id).then((value) {
           // Open Details Page
           RouteUtil
-              .navigateTo(context, const BookPage(),);
+              .navigateTo(context, const DetailPage(),);
         });
       },
 
