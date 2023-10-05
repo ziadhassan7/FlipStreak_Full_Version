@@ -8,8 +8,7 @@ import 'package:syncfusion_flutter_core/theme.dart';
 import 'package:syncfusion_flutter_pdfviewer/pdfviewer.dart';
 import '../../../../app_constants/color_constants.dart';
 import '../../../business/app_wise/controllers/book_controller.dart';
-import '../../../business/app_wise/counters/counters_util.dart';
-import '../../../business/app_wise/controllers/page_controller.dart';
+import '../../../business/app_wise/counters/counters_helper.dart';
 import '../../../provider/horizontal_indicator_provider.dart';
 import '../../../provider/page_filter_provider.dart';
 import '../../../provider/search_text_provider.dart';
@@ -19,6 +18,8 @@ import '../../views/topbar/search_topbar/search_bar.dart';
 
 class PdfViewer extends ConsumerWidget {
   const PdfViewer({Key? key, this.initialPage}) : super(key: key);
+
+  static final CountersHelper counters = CountersHelper();
 
   static ColorFilter _pageFilter = filterNormalPage;
   final int? initialPage;
@@ -50,8 +51,8 @@ class PdfViewer extends ConsumerWidget {
 
               key: BookPage.pdfViewerKey,
               controller: controller,
-              scrollDirection: PdfScrollDirection.horizontal,
-              pageLayoutMode: PdfPageLayoutMode.single,
+              scrollDirection: PdfScrollDirection.vertical,
+              pageLayoutMode: PdfPageLayoutMode.continuous,
 
 
               /// Text Select
@@ -94,54 +95,13 @@ class PdfViewer extends ConsumerWidget {
 
               },
 
-              /// Change Page
-              onPageChanged: (details) async {
-                int lastPage = await getLastPage(bookModel.id);
-                int newPage = details.newPageNumber;
-
-                if (newPage > lastPage) {
-                  CountersUtil.updateCounters(ref, isIncrement: true);
-                  updateLastPage(pageNumber: controller.pageNumber);
-                  checkFab(ref);
-
-                }
-                if (newPage < lastPage){
-                  CountersUtil.updateCounters(ref, isIncrement: false);
-                  updateLastPage(pageNumber: controller.pageNumber);
-                  checkFab(ref);
-                }
-
-                if(newPage == bookModel.totalPages) {
-                  markAsComplete();
-                }
-              },
             ),
 
             /// Indicator: Scrolling is Horizontal
             const HorizontalIndicatorWidget(),
-
-            disableTouchEvents(),
           ],
         ),
       ),
-    );
-  }
-
-  Widget disableTouchEvents(){
-    return Consumer(
-      builder: (context, ref, _) {
-        final isSelecting = ref.watch(selectTextProvider);
-
-        return Visibility(
-          visible: isSelecting, //disable scrolling, while selecting text
-
-          child: GestureDetector(
-            behavior: HitTestBehavior.translucent,
-            onTap: (){},
-            onHorizontalDragDown: (details){},
-          ),
-        );
-      }
     );
   }
 

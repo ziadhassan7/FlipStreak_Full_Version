@@ -28,7 +28,7 @@ class ContextMenuView extends StatelessWidget {
 
       child: Container(
         width: 260, height: 50,
-        padding: const CustomPadding(ver: 8, hor: 15),
+        padding: const CustomPadding(vertical: 8, horizontal: 15),
         decoration: CustomDecoration(
           radius: radius,
           backgroundColor: colorAccent.withOpacity(0.05)

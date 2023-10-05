@@ -20,7 +20,7 @@ class ContextMenuItem extends StatelessWidget {
   Widget build(BuildContext context,) {
     return Center(
       child: Padding(
-        padding: const CustomPadding(hor: 15),
+        padding: const CustomPadding(horizontal: 15),
 
         child: InkWell(
           /// Functions

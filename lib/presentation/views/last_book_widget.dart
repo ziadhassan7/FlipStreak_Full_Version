@@ -171,7 +171,7 @@ class LastBookWidget extends ConsumerWidget {
 
   Future<void> onTap(BuildContext context, BookModel model) async {
     // Globalize new bookModel data
-    await globalizeCurrentBookModel(model.id).then((value) {
+    await globalizeCurrentBookModel(model).then((value) {
       // Open Details Page
       RouteUtil
           .navigateTo(context, const BookPage(),);

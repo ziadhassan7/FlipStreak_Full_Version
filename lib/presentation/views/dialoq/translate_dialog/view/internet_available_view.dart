@@ -43,7 +43,7 @@ class InternetAvailableView extends StatelessWidget {
     return Theme(
       data: ThemeData(),
       child: Container(
-        padding: const CustomPadding(ver: 4, hor: 10),
+        padding: const CustomPadding(vertical: 4, horizontal: 10),
         decoration: CustomDecoration(
           borderColor: Colors.black54,
           borderWidth: 1,

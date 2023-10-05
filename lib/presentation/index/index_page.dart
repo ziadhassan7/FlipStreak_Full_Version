@@ -73,7 +73,7 @@ class IndexPage extends ConsumerWidget {
 
             /// Achievements
             navBarItem(
-              title: "Achievements",
+              title: "Progress",
               iconPath: "assets/icons/achievement.svg",
               itemIndex: 3,
             ),
