@@ -10,6 +10,7 @@ class StreakWidget extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+
     final int streakCount = ref.watch(streakProvider);
 
     return SizedBox(
@@ -24,7 +25,7 @@ class StreakWidget extends ConsumerWidget {
             alignment: AlignmentDirectional.bottomCenter,
 
             child: SvgPicture.asset(
-                getBeacon(streakCount),
+              getBeacon(streakCount),
               width: MediaQuery.of(context).size.width * getBeaconWidth(streakCount),
             ),
           ),
@@ -39,7 +40,7 @@ class StreakWidget extends ConsumerWidget {
               children: [
                 textWidget(StreakCommentUtil.getSmallText(ref), size: 15),
                 textWidget(StreakCommentUtil.getBigText(ref), size: 16),
-                const Spacer(),
+                const SizedBox(height: 2,),
                 textWidget(streakCount.toString(), size: 55),
                 textWidget("days", size: 30),
               ],
@@ -86,7 +87,7 @@ class StreakWidget extends ConsumerWidget {
     if (streakCount > 2 && streakCount < 5) {
       return 0.6;
 
-    //from 5 ->
+      //from 5 ->
     } else {
       return 1;
     }
@@ -96,14 +97,14 @@ class StreakWidget extends ConsumerWidget {
 
     //from 0 -> 2
     if (streakCount >= 0 && streakCount <= 2) {
-      return 0.27;
+      return 0.28;
     }
 
     //from 3 -> 4
     if (streakCount > 2 && streakCount < 5) {
       return 0.3;
 
-    //from 5 ->
+      //from 5 ->
     } else {
       return 0.35;
     }
