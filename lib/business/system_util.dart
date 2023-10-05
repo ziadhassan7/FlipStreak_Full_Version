@@ -18,7 +18,16 @@ class SystemUtil {
   static setScreenAllOrientation(){
     SystemChrome.setPreferredOrientations(
         [DeviceOrientation.portraitDown,DeviceOrientation.portraitUp,
-        DeviceOrientation.landscapeLeft,DeviceOrientation.landscapeRight]);
+          DeviceOrientation.landscapeLeft,DeviceOrientation.landscapeRight]);
+  }
+
+  // Get orientation
+  static bool isScreenLandscape(BuildContext context){
+    if (MediaQuery.of(context).orientation == Orientation.landscape) {
+      return true;
+    } else {
+      return false;
+    }
   }
 
   /// Status bar

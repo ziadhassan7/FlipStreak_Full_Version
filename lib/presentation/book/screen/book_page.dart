@@ -4,6 +4,7 @@ import 'package:flip_streak/presentation/book/screen/pdf_viewer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:syncfusion_flutter_pdfviewer/pdfviewer.dart';
+import 'package:wakelock/wakelock.dart';
 import '../../../app_constants/topbar_constants.dart';
 import '../../../business/app_wise/exit_book_util.dart';
 import '../../../business/system_util.dart';
@@ -22,6 +23,11 @@ class BookPage extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+
+    //Make Screen always awake (Never Dim out)
+    Wakelock.enable();
+
+    disableTopbarOnLandscape(context, ref);
 
     SystemUtil.updateStatusBarColor(ref);
 
@@ -108,5 +114,14 @@ class BookPage extends ConsumerWidget {
     });
   }
 
+  disableTopbarOnLandscape(BuildContext context, WidgetRef ref){
+
+    Future.delayed(const Duration(milliseconds: 300), (){
+      if(SystemUtil.isScreenLandscape(context)){
+        ref.read(mainTopBarProvider.notifier).keepClosed();
+      }
+    });
+
+  }
 
 }
