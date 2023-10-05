@@ -7,6 +7,7 @@ import 'package:syncfusion_flutter_core/theme.dart';
 import 'package:syncfusion_flutter_pdfviewer/pdfviewer.dart';
 import '../../../../app_constants/color_constants.dart';
 import '../../../business/app_wise/controllers/book_controller.dart';
+import '../../../business/app_wise/controllers/page_controller.dart';
 import '../../../business/app_wise/counters/counters_helper.dart';
 import '../../../provider/page_filter_provider.dart';
 import '../../../provider/search_text_provider.dart';
@@ -86,7 +87,24 @@ class PdfViewer extends ConsumerWidget {
             Future.delayed(const Duration(milliseconds: 100), (){
               ref.read(mainTopBarProvider.notifier).keepOpen();
             });
+          },
 
+          onPageChanged: (details){
+            int lastPage = bookModel.lastPage;
+            int currentPage = details.newPageNumber;
+
+            // update counters & states
+            if (currentPage > lastPage) {
+              updateOnPageScroll(ref, newPage: currentPage, isIncrement: true);
+            }
+            if (currentPage < lastPage){
+              updateOnPageScroll(ref, newPage: currentPage, isIncrement: false);
+            }
+
+            //update completion state
+            if(currentPage == bookModel.totalPages) {
+              markAsComplete();
+            }
           },
 
         ),
@@ -146,6 +164,17 @@ class PdfViewer extends ConsumerWidget {
           ? controller.jumpToPage(initialPage!)
           : jumpToLastPage(bookModel.id);
     }
+  }
+
+  updateOnPageScroll(WidgetRef ref, {required int newPage, required bool isIncrement}){
+    //update page & streak counters
+    counters.updateCounters(ref, isIncrement: isIncrement);
+    //update last page
+    updateLastPage(pageNumber: newPage);
+    //refresh fab button
+    checkFab(ref);
+    // Hide Topbar
+    ref.read(mainTopBarProvider.notifier).keepClosed();
   }
 
 }
